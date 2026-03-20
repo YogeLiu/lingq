@@ -28,6 +28,9 @@ struct CourseListView: View {
             }
         }
         .navigationTitle("我的课程")
+        .navigationDestination(for: Course.self) { course in
+            IntensiveReadingView(course: course)
+        }
         .toolbar {
             if !courses.isEmpty {
                 Button("导入", systemImage: "plus") {

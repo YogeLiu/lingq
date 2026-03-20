@@ -14,6 +14,7 @@ struct IntensiveReadingView: View {
     @State private var searcher: CueSearcher?
     @State private var selectedWord: String?
     @State private var showLookup = false
+    @State private var showImmersive = false
     @Query private var words: [Word]
 
     private var wordLevels: [String: WordLevel] {
@@ -85,6 +86,20 @@ struct IntensiveReadingView: View {
         }
         .task {
             await loadContent()
+        }
+        .toolbar {
+            Button("泛听", systemImage: "waveform") {
+                showImmersive = true
+            }
+            .disabled(cues.isEmpty)
+        }
+        .fullScreenCover(isPresented: $showImmersive) {
+            ImmersiveListeningView(
+                course: course,
+                cues: cues,
+                searcher: searcher ?? CueSearcher(cues: []),
+                player: player
+            )
         }
         .onDisappear {
             course.playbackPosition = player.currentTime
