@@ -11,8 +11,7 @@ struct ContentView: View {
 
             Tab("生词本", systemImage: "character.book.closed") {
                 NavigationStack {
-                    Text("生词本")
-                        .navigationTitle("生词本")
+                    VocabularyListView()
                 }
             }
 

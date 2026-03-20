@@ -23,8 +23,10 @@
 		78F503FA3FFD6211183B1F3F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */; };
 		79356600517A47D3417FB81F /* SRSKit in Frameworks */ = {isa = PBXBuildFile; productRef = D6AC468D973CC09D9EF49E0A /* SRSKit */; };
 		7A7D5078CEB6B326C4523DE8 /* SharedModels in Frameworks */ = {isa = PBXBuildFile; productRef = 623D77E36CEDC9AE88D8139D /* SharedModels */; };
+		8486569F5C5A2DCB4E8610F6 /* WordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE90E07FFD97952DE2EBD65 /* WordCardView.swift */; };
 		88C3491F06253ED68F9B1D0B /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */; };
 		8DA0D4C27E58E9A4112F2A19 /* IntensiveReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9352C5BF3D2EEA24837BEBE8 /* IntensiveReadingView.swift */; };
+		A53B55DDB8BB50ECAADECA2B /* VocabularyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550D37F2BF53178992560B6C /* VocabularyListView.swift */; };
 		A76C9D7B39AD59D417B9055E /* ImmersivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AFD70D2A1367A17F6A7CE /* ImmersivePlayerView.swift */; };
 		AABBD8AB0513355756F803AD /* LyricLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60BA9073A93B589DF5E7AD6 /* LyricLineView.swift */; };
 		B1381338EB01844CDE32F9CB /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4548FCC719BAE95F04E845D /* EmptyStateView.swift */; };
@@ -43,11 +45,13 @@
 		4BC8FA14D8B5C7D608C9C398 /* lingQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = lingQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0344E367B92D4630A5317E /* LyricsCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsCanvasView.swift; sourceTree = "<group>"; };
 		4C04C8A5BEF3FAD7AC72686F /* TappableWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableWordView.swift; sourceTree = "<group>"; };
+		550D37F2BF53178992560B6C /* VocabularyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyListView.swift; sourceTree = "<group>"; };
 		64E826FC2A9D0AF479DAD301 /* WordLookupPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordLookupPopup.swift; sourceTree = "<group>"; };
 		6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		6DDB1E14A9A834CAD17A5556 /* SentenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceView.swift; sourceTree = "<group>"; };
 		746AE2F3D12FC1234D8EB1CF /* ImmersiveListeningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveListeningView.swift; sourceTree = "<group>"; };
 		7933833BA2A2F616BE41833F /* CourseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardView.swift; sourceTree = "<group>"; };
+		7EE90E07FFD97952DE2EBD65 /* WordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCardView.swift; sourceTree = "<group>"; };
 		9352C5BF3D2EEA24837BEBE8 /* IntensiveReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensiveReadingView.swift; sourceTree = "<group>"; };
 		9F0F5E4AF9BD11F336F5A254 /* SharedModels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedModels; path = Packages/SharedModels; sourceTree = SOURCE_ROOT; };
 		A2FB2508543162BB2D7F63A4 /* SubtitleKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SubtitleKit; path = Packages/SubtitleKit; sourceTree = SOURCE_ROOT; };
@@ -128,6 +132,7 @@
 				E668E475C5A56C04BBEAD586 /* Import */,
 				4A4E87A87AE22762C8A0D708 /* IntensiveReading */,
 				58973993BFC2A0C4D152EC0D /* Theme */,
+				BA3232B01AA3569919C44F69 /* Vocabulary */,
 			);
 			name = lingQ;
 			path = App/lingQ;
@@ -141,6 +146,15 @@
 				A4548FCC719BAE95F04E845D /* EmptyStateView.swift */,
 			);
 			path = CourseList;
+			sourceTree = "<group>";
+		};
+		BA3232B01AA3569919C44F69 /* Vocabulary */ = {
+			isa = PBXGroup;
+			children = (
+				550D37F2BF53178992560B6C /* VocabularyListView.swift */,
+				7EE90E07FFD97952DE2EBD65 /* WordCardView.swift */,
+			);
+			path = Vocabulary;
 			sourceTree = "<group>";
 		};
 		D8EC24F2711D5DAC45FE8A39 /* ImmersiveListening */ = {
@@ -256,6 +270,8 @@
 				1E05EDE100B10CD69570594B /* SentenceView.swift in Sources */,
 				6562AE52E85F638AC0B1DFD4 /* TappableWordView.swift in Sources */,
 				2B3298DCD261D789606A353D /* ThemeManager.swift in Sources */,
+				A53B55DDB8BB50ECAADECA2B /* VocabularyListView.swift in Sources */,
+				8486569F5C5A2DCB4E8610F6 /* WordCardView.swift in Sources */,
 				2C870BE54CDAF5A709E60FE3 /* WordLookupPopup.swift in Sources */,
 				40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */,
 			);
