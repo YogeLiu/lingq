@@ -12,7 +12,7 @@ struct ImmersivePlayerView: View {
             // 进度条
             VStack(spacing: 4) {
                 ProgressView(value: player.currentTime, total: max(player.duration, 1))
-                    .tint(Color.accentColorColor)
+                    .tint(Color.accentColor)
                 HStack {
                     Text(formatTime(player.currentTime))
                     Spacer()
@@ -37,7 +37,7 @@ struct ImmersivePlayerView: View {
                         .font(.largeTitle)
                 }
                 .frame(width: 64, height: 64)
-                .background(Color.accentColorColor, in: Circle())
+                .background(Color.accentColor, in: Circle())
                 .foregroundStyle(.white)
 
                 Button(action: onNext) {
