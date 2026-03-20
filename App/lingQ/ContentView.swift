@@ -5,8 +5,7 @@ struct ContentView: View {
         TabView {
             Tab("课程", systemImage: "books.vertical") {
                 NavigationStack {
-                    Text("课程列表")
-                        .navigationTitle("我的课程")
+                    CourseListView()
                 }
             }
 

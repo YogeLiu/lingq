@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		01AE84C71E23B5A2D5AF6543 /* AudioPlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD94ADE8B855A477498CE6A /* AudioPlayerKit */; };
+		2B3298DCD261D789606A353D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D19867710E3D8A89947417 /* ThemeManager.swift */; };
 		355F7FE4B519600F5DA0A01D /* SubtitleKit in Frameworks */ = {isa = PBXBuildFile; productRef = 945ED9977C82F8E91B1E86CA /* SubtitleKit */; };
 		40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A27492F1F1449F854EDE9 /* lingQApp.swift */; };
+		4FFFF6431EAB1E4C38858BA4 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */; };
 		5F37ED3D18D3BFBEC6D65DD9 /* VocabularyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 47257DB2D616381385A9903E /* VocabularyKit */; };
+		788DA0104AC3E94A8870974D /* CourseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933833BA2A2F616BE41833F /* CourseCardView.swift */; };
+		78F503FA3FFD6211183B1F3F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */; };
 		79356600517A47D3417FB81F /* SRSKit in Frameworks */ = {isa = PBXBuildFile; productRef = D6AC468D973CC09D9EF49E0A /* SRSKit */; };
 		7A7D5078CEB6B326C4523DE8 /* SharedModels in Frameworks */ = {isa = PBXBuildFile; productRef = 623D77E36CEDC9AE88D8139D /* SharedModels */; };
+		88C3491F06253ED68F9B1D0B /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */; };
+		B1381338EB01844CDE32F9CB /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4548FCC719BAE95F04E845D /* EmptyStateView.swift */; };
 		FF79D63143B796A4DAF4806A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D541C98522B71CF7BE60 /* ContentView.swift */; };
-		A1B2C3D4E5F60001A1B2C3D4 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */; };
-		A1B2C3D4E5F60003A1B2C3D4 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,12 +28,16 @@
 		1AA47399208F759CD388B4FB /* VocabularyKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VocabularyKit; path = Packages/VocabularyKit; sourceTree = SOURCE_ROOT; };
 		1DE7C890D4FDBDFFC3ECC276 /* AudioPlayerKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioPlayerKit; path = Packages/AudioPlayerKit; sourceTree = SOURCE_ROOT; };
 		241A27492F1F1449F854EDE9 /* lingQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lingQApp.swift; sourceTree = "<group>"; };
+		33D19867710E3D8A89947417 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		4BC8FA14D8B5C7D608C9C398 /* lingQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = lingQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		7933833BA2A2F616BE41833F /* CourseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardView.swift; sourceTree = "<group>"; };
 		9F0F5E4AF9BD11F336F5A254 /* SharedModels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedModels; path = Packages/SharedModels; sourceTree = SOURCE_ROOT; };
 		A2FB2508543162BB2D7F63A4 /* SubtitleKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SubtitleKit; path = Packages/SubtitleKit; sourceTree = SOURCE_ROOT; };
+		A4548FCC719BAE95F04E845D /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D3F5D541C98522B71CF7BE60 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,15 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		58973993BFC2A0C4D152EC0D /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */,
+				33D19867710E3D8A89947417 /* ThemeManager.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		5950087AC4F20DFD9D2BCA0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,25 +85,36 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1B2C3D4E5F60005A1B2C3D4 /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */,
-				A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */,
-			);
-			path = Theme;
-			sourceTree = "<group>";
-		};
 		650107DAEA9DFB4B1FF93AFC /* lingQ */ = {
 			isa = PBXGroup;
 			children = (
 				D3F5D541C98522B71CF7BE60 /* ContentView.swift */,
 				1411FEA98A21414959318286 /* Info.plist */,
 				241A27492F1F1449F854EDE9 /* lingQApp.swift */,
-				A1B2C3D4E5F60005A1B2C3D4 /* Theme */,
+				84CB5BFF612775E85B60D225 /* CourseList */,
+				E668E475C5A56C04BBEAD586 /* Import */,
+				58973993BFC2A0C4D152EC0D /* Theme */,
 			);
 			name = lingQ;
 			path = App/lingQ;
+			sourceTree = "<group>";
+		};
+		84CB5BFF612775E85B60D225 /* CourseList */ = {
+			isa = PBXGroup;
+			children = (
+				7933833BA2A2F616BE41833F /* CourseCardView.swift */,
+				D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */,
+				A4548FCC719BAE95F04E845D /* EmptyStateView.swift */,
+			);
+			path = CourseList;
+			sourceTree = "<group>";
+		};
+		E668E475C5A56C04BBEAD586 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */,
+			);
+			path = Import;
 			sourceTree = "<group>";
 		};
 		ED7BA0C5A08A53C9333798A9 = {
@@ -166,10 +194,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88C3491F06253ED68F9B1D0B /* AppTheme.swift in Sources */,
+				4FFFF6431EAB1E4C38858BA4 /* BookmarkManager.swift in Sources */,
 				FF79D63143B796A4DAF4806A /* ContentView.swift in Sources */,
+				788DA0104AC3E94A8870974D /* CourseCardView.swift in Sources */,
+				78F503FA3FFD6211183B1F3F /* CourseListView.swift in Sources */,
+				B1381338EB01844CDE32F9CB /* EmptyStateView.swift in Sources */,
+				2B3298DCD261D789606A353D /* ThemeManager.swift in Sources */,
 				40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */,
-				A1B2C3D4E5F60001A1B2C3D4 /* AppTheme.swift in Sources */,
-				A1B2C3D4E5F60003A1B2C3D4 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
