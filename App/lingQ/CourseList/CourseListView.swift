@@ -61,12 +61,14 @@ struct CourseListView: View {
                 }
                 defer { srtURL.stopAccessingSecurityScopedResource() }
                 let srtBookmark = try BookmarkManager.createBookmark(for: srtURL)
-                createCourse(audioBookmark: pendingAudioBookmark!, subtitleBookmark: srtBookmark, title: pendingAudioName!)
+                if let audioBookmark = pendingAudioBookmark, let title = pendingAudioName {
+                    createCourse(audioBookmark: audioBookmark, subtitleBookmark: srtBookmark, title: title)
+                }
             } else {
                 showSubtitleImporter = true
             }
         } catch {
-            // Import failed silently
+            print("[LingQ] Audio import failed: \(error)")
         }
     }
 
@@ -82,7 +84,9 @@ struct CourseListView: View {
         do {
             let srtBookmark = try BookmarkManager.createBookmark(for: url)
             createCourse(audioBookmark: audioBookmark, subtitleBookmark: srtBookmark, title: name)
-        } catch {}
+        } catch {
+            print("[LingQ] Subtitle import failed: \(error)")
+        }
         pendingAudioBookmark = nil
         pendingAudioName = nil
     }
