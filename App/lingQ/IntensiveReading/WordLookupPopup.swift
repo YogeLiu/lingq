@@ -14,6 +14,7 @@ struct WordLookupPopup: View {
     @Environment(\.dismiss) private var dismiss
     @State private var definition: String = ""
     @State private var currentLevel: WordLevel = .new
+    @State private var synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -129,6 +130,6 @@ struct WordLookupPopup: View {
         let utterance = AVSpeechUtterance(string: word)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.4
-        AVSpeechSynthesizer().speak(utterance)
+        synthesizer.speak(utterance)
     }
 }
