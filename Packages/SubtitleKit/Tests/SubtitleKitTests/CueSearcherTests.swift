@@ -29,6 +29,17 @@ import SharedModels
     #expect(searcher.cue(at: 1.0) == nil)
 }
 
+@Test func cueAtExactBoundary() {
+    let cues = [
+        SubtitleCue(id: 1, startTime: 0, endTime: 3, text: "First"),
+        SubtitleCue(id: 2, startTime: 3, endTime: 6, text: "Second"),
+    ]
+    let searcher = CueSearcher(cues: cues)
+    #expect(searcher.cue(at: 3.0)?.id == 2)    // boundary belongs to next cue (startTime inclusive)
+    #expect(searcher.cue(at: 2.999)?.id == 1)  // just before boundary
+    #expect(searcher.cue(at: 6.0) == nil)      // past last cue's end
+}
+
 @Test func findNextCue() {
     let cues = [
         SubtitleCue(id: 1, startTime: 0, endTime: 3, text: "First"),

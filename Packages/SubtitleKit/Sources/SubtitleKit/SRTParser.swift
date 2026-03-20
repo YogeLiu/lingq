@@ -17,7 +17,7 @@ public enum SRTParser {
                   let (start, end) = parseTimestampLine(lines[1])
             else { continue }
 
-            let text = lines[2...].joined(separator: "\n")
+            let text = lines[2...].map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.joined(separator: "\n")
             cues.append(SubtitleCue(id: index, startTime: start, endTime: end, text: text))
         }
         return cues
