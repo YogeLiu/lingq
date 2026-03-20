@@ -8,16 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		01AE84C71E23B5A2D5AF6543 /* AudioPlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD94ADE8B855A477498CE6A /* AudioPlayerKit */; };
+		1E05EDE100B10CD69570594B /* SentenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB1E14A9A834CAD17A5556 /* SentenceView.swift */; };
 		2B3298DCD261D789606A353D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D19867710E3D8A89947417 /* ThemeManager.swift */; };
 		355F7FE4B519600F5DA0A01D /* SubtitleKit in Frameworks */ = {isa = PBXBuildFile; productRef = 945ED9977C82F8E91B1E86CA /* SubtitleKit */; };
+		380F8B080CDA1C7C1C9960E0 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597C0D262DE736C77D0E980 /* MiniPlayerView.swift */; };
 		40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A27492F1F1449F854EDE9 /* lingQApp.swift */; };
 		4FFFF6431EAB1E4C38858BA4 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */; };
 		5F37ED3D18D3BFBEC6D65DD9 /* VocabularyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 47257DB2D616381385A9903E /* VocabularyKit */; };
+		6562AE52E85F638AC0B1DFD4 /* TappableWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04C8A5BEF3FAD7AC72686F /* TappableWordView.swift */; };
 		788DA0104AC3E94A8870974D /* CourseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933833BA2A2F616BE41833F /* CourseCardView.swift */; };
 		78F503FA3FFD6211183B1F3F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */; };
 		79356600517A47D3417FB81F /* SRSKit in Frameworks */ = {isa = PBXBuildFile; productRef = D6AC468D973CC09D9EF49E0A /* SRSKit */; };
 		7A7D5078CEB6B326C4523DE8 /* SharedModels in Frameworks */ = {isa = PBXBuildFile; productRef = 623D77E36CEDC9AE88D8139D /* SharedModels */; };
 		88C3491F06253ED68F9B1D0B /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */; };
+		8DA0D4C27E58E9A4112F2A19 /* IntensiveReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9352C5BF3D2EEA24837BEBE8 /* IntensiveReadingView.swift */; };
 		B1381338EB01844CDE32F9CB /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4548FCC719BAE95F04E845D /* EmptyStateView.swift */; };
 		FF79D63143B796A4DAF4806A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D541C98522B71CF7BE60 /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -31,11 +35,15 @@
 		33D19867710E3D8A89947417 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		4BC8FA14D8B5C7D608C9C398 /* lingQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = lingQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C04C8A5BEF3FAD7AC72686F /* TappableWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableWordView.swift; sourceTree = "<group>"; };
 		6A6AEAD61E8870ED2B4433B8 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		6DDB1E14A9A834CAD17A5556 /* SentenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceView.swift; sourceTree = "<group>"; };
 		7933833BA2A2F616BE41833F /* CourseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardView.swift; sourceTree = "<group>"; };
+		9352C5BF3D2EEA24837BEBE8 /* IntensiveReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensiveReadingView.swift; sourceTree = "<group>"; };
 		9F0F5E4AF9BD11F336F5A254 /* SharedModels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedModels; path = Packages/SharedModels; sourceTree = SOURCE_ROOT; };
 		A2FB2508543162BB2D7F63A4 /* SubtitleKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SubtitleKit; path = Packages/SubtitleKit; sourceTree = SOURCE_ROOT; };
 		A4548FCC719BAE95F04E845D /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		A597C0D262DE736C77D0E980 /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 		D3F5D541C98522B71CF7BE60 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D65B66EB5812AE8B4BA24E62 /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +76,17 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		4A4E87A87AE22762C8A0D708 /* IntensiveReading */ = {
+			isa = PBXGroup;
+			children = (
+				9352C5BF3D2EEA24837BEBE8 /* IntensiveReadingView.swift */,
+				A597C0D262DE736C77D0E980 /* MiniPlayerView.swift */,
+				6DDB1E14A9A834CAD17A5556 /* SentenceView.swift */,
+				4C04C8A5BEF3FAD7AC72686F /* TappableWordView.swift */,
+			);
+			path = IntensiveReading;
+			sourceTree = "<group>";
+		};
 		58973993BFC2A0C4D152EC0D /* Theme */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +112,7 @@
 				241A27492F1F1449F854EDE9 /* lingQApp.swift */,
 				84CB5BFF612775E85B60D225 /* CourseList */,
 				E668E475C5A56C04BBEAD586 /* Import */,
+				4A4E87A87AE22762C8A0D708 /* IntensiveReading */,
 				58973993BFC2A0C4D152EC0D /* Theme */,
 			);
 			name = lingQ;
@@ -200,6 +220,10 @@
 				788DA0104AC3E94A8870974D /* CourseCardView.swift in Sources */,
 				78F503FA3FFD6211183B1F3F /* CourseListView.swift in Sources */,
 				B1381338EB01844CDE32F9CB /* EmptyStateView.swift in Sources */,
+				8DA0D4C27E58E9A4112F2A19 /* IntensiveReadingView.swift in Sources */,
+				380F8B080CDA1C7C1C9960E0 /* MiniPlayerView.swift in Sources */,
+				1E05EDE100B10CD69570594B /* SentenceView.swift in Sources */,
+				6562AE52E85F638AC0B1DFD4 /* TappableWordView.swift in Sources */,
 				2B3298DCD261D789606A353D /* ThemeManager.swift in Sources */,
 				40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */,
 			);
