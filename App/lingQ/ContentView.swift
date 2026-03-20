@@ -17,8 +17,7 @@ struct ContentView: View {
 
             Tab("复习", systemImage: "sparkles.rectangle.stack") {
                 NavigationStack {
-                    Text("闪卡复习")
-                        .navigationTitle("复习")
+                    FlashcardReviewView()
                 }
             }
         }
