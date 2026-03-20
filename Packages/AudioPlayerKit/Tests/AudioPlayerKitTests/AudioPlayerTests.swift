@@ -1,6 +1,7 @@
 import Testing
 @testable import AudioPlayerKit
 
+@MainActor
 @Test func initialStateIsStopped() {
     let player = AudioPlayer()
     #expect(player.isPlaying == false)
@@ -9,6 +10,7 @@ import Testing
     #expect(player.playbackRate == 1.0)
 }
 
+@MainActor
 @Test func playbackRateClamped() {
     let player = AudioPlayer()
     player.playbackRate = 3.0
@@ -17,6 +19,7 @@ import Testing
     #expect(player.playbackRate == 0.5)
 }
 
+@MainActor
 @Test func loopRangeCanBeSet() {
     let player = AudioPlayer()
     player.loopRange = 5.0...10.0

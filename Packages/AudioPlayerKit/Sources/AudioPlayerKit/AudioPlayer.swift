@@ -1,6 +1,7 @@
 import AVFoundation
 import Observation
 
+@MainActor
 @Observable
 public final class AudioPlayer {
     public private(set) var isPlaying = false
@@ -68,11 +69,15 @@ public final class AudioPlayer {
     private func startTimer() {
         stopTimer()
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-            guard let self, let avPlayer = self.avPlayer else { return }
-            self.currentTime = avPlayer.currentTime
+            Task { @MainActor in
+                guard let self, let avPlayer = self.avPlayer else { return }
+                let currentPlayerTime = avPlayer.currentTime
+                self.currentTime = currentPlayerTime
 
-            if let range = self.loopRange, self.currentTime >= range.upperBound {
-                self.seek(to: range.lowerBound)
+                let range = self.loopRange
+                if let range, currentPlayerTime >= range.upperBound {
+                    self.seek(to: range.lowerBound)
+                }
             }
         }
     }
