@@ -14,6 +14,8 @@
 		79356600517A47D3417FB81F /* SRSKit in Frameworks */ = {isa = PBXBuildFile; productRef = D6AC468D973CC09D9EF49E0A /* SRSKit */; };
 		7A7D5078CEB6B326C4523DE8 /* SharedModels in Frameworks */ = {isa = PBXBuildFile; productRef = 623D77E36CEDC9AE88D8139D /* SharedModels */; };
 		FF79D63143B796A4DAF4806A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D541C98522B71CF7BE60 /* ContentView.swift */; };
+		A1B2C3D4E5F60001A1B2C3D4 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */; };
+		A1B2C3D4E5F60003A1B2C3D4 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		9F0F5E4AF9BD11F336F5A254 /* SharedModels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SharedModels; path = Packages/SharedModels; sourceTree = SOURCE_ROOT; };
 		A2FB2508543162BB2D7F63A4 /* SubtitleKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SubtitleKit; path = Packages/SubtitleKit; sourceTree = SOURCE_ROOT; };
 		D3F5D541C98522B71CF7BE60 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,12 +68,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A1B2C3D4E5F60005A1B2C3D4 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60002A1B2C3D4 /* AppTheme.swift */,
+				A1B2C3D4E5F60004A1B2C3D4 /* ThemeManager.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		650107DAEA9DFB4B1FF93AFC /* lingQ */ = {
 			isa = PBXGroup;
 			children = (
 				D3F5D541C98522B71CF7BE60 /* ContentView.swift */,
 				1411FEA98A21414959318286 /* Info.plist */,
 				241A27492F1F1449F854EDE9 /* lingQApp.swift */,
+				A1B2C3D4E5F60005A1B2C3D4 /* Theme */,
 			);
 			name = lingQ;
 			path = App/lingQ;
@@ -154,6 +168,8 @@
 			files = (
 				FF79D63143B796A4DAF4806A /* ContentView.swift in Sources */,
 				40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */,
+				A1B2C3D4E5F60001A1B2C3D4 /* AppTheme.swift in Sources */,
+				A1B2C3D4E5F60003A1B2C3D4 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,12 +1,23 @@
 import SwiftUI
 import SwiftData
+import SharedModels
+import VocabularyKit
+import AudioPlayerKit
 
 @main
 struct lingQApp: App {
+    @State private var themeManager = ThemeManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(themeManager.colorScheme)
+                .environment(themeManager)
         }
-        // TODO: Task 7 — add .modelContainer(for: [Course.self, Word.self])
+        .modelContainer(for: [Course.self, Word.self])
+    }
+
+    init() {
+        AudioPlayer.configureAudioSession()
     }
 }
