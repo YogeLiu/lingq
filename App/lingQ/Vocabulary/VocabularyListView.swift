@@ -61,7 +61,7 @@ struct FilterChip: View {
             .font(.caption.bold())
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
-            .background(isSelected ? Color.accent : Color.secondary.opacity(0.15), in: Capsule())
+            .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.15), in: Capsule())
             .foregroundStyle(isSelected ? .white : .primary)
             .onTapGesture(perform: onTap)
     }
