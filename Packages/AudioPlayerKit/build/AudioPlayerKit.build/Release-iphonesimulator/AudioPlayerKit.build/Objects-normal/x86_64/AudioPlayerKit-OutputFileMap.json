@@ -1,0 +1,15 @@
+{
+  "" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayerKit-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/Sources/AudioPlayerKit/AudioPlayer.swift" : {
+    "index-unit-output-path" : "/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayer.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayer.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/build/AudioPlayerKit.build/Release-iphonesimulator/AudioPlayerKit.build/Objects-normal/x86_64/AudioPlayer.o"
+  }
+}

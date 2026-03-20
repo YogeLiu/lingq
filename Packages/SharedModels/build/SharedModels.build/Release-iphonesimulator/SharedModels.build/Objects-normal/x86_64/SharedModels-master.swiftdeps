@@ -1,0 +1,8 @@
+version: "Apple Swift version 6.1 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)"
+options: "12c0d15afa414431a1775641a84f5d2a59befc5d976ffbc3975e8d98d3423b1e"
+build_start_time: [1773993615, 40974000]
+build_end_time: [1773993617, 30307000]
+inputs:
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/Course.swift": [1773989811, 228930603]
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/SubtitleCue.swift": [1773989112, 119561116]
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/WordLevel.swift": [1773989065, 101135647]

@@ -1,0 +1,6 @@
+version: "Apple Swift version 6.1 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)"
+options: "3f02599fe1e4ee02853faf809e2170b458128da756597c7aefb7436857c1a2fd"
+build_start_time: [1773994581, 46411000]
+build_end_time: [1773994581, 552881000]
+inputs:
+  "/Users/yoge/dev/swift/lingQ/Packages/AudioPlayerKit/Sources/AudioPlayerKit/AudioPlayer.swift": !dirty [1773992110, 968761448]

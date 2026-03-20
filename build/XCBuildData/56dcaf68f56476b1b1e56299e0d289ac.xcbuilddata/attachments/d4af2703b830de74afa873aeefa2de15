@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQ-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQ-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQ-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQ-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/App/lingQ/ContentView.swift" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.dia",
+    "index-unit-output-path" : "/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.o",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/ContentView~partial.swiftmodule"
+  },
+  "/Users/yoge/dev/swift/lingQ/App/lingQ/lingQApp.swift" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.dia",
+    "index-unit-output-path" : "/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.o",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp.swiftdeps",
+    "swiftmodule" : "/Users/yoge/dev/swift/lingQ/build/lingQ.build/Debug-iphonesimulator/lingQ.build/Objects-normal/x86_64/lingQApp~partial.swiftmodule"
+  }
+}

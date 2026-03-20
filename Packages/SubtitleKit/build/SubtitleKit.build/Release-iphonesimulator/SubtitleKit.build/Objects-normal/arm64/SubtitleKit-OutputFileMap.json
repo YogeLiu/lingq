@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SubtitleKit-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/Sources/SubtitleKit/CueSearcher.swift" : {
+    "index-unit-output-path" : "/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/CueSearcher.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/CueSearcher.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/CueSearcher.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/Sources/SubtitleKit/SRTParser.swift" : {
+    "index-unit-output-path" : "/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SRTParser.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SRTParser.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/build/SubtitleKit.build/Release-iphonesimulator/SubtitleKit.build/Objects-normal/arm64/SRTParser.o"
+  }
+}

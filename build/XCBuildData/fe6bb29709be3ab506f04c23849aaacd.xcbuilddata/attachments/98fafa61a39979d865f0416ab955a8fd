@@ -1,0 +1,25 @@
+{
+  "" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SharedModels-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/Course.swift" : {
+    "index-unit-output-path" : "/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/Course.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/Course.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/Course.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/SubtitleCue.swift" : {
+    "index-unit-output-path" : "/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SubtitleCue.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SubtitleCue.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/SubtitleCue.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/Sources/SharedModels/WordLevel.swift" : {
+    "index-unit-output-path" : "/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/WordLevel.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/WordLevel.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SharedModels/build/SharedModels.build/Release-iphonesimulator/SharedModels.build/Objects-normal/arm64/WordLevel.o"
+  }
+}

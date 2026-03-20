@@ -1,0 +1,8 @@
+version: "Apple Swift version 6.1 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)"
+options: "21d9b08afb82b766487565d44afbacddfcc72f922a598aad7fa2d59fbfda1909"
+build_start_time: [1773994059, 128375000]
+build_end_time: [1773994059, 502464000]
+inputs:
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/ReviewGrade.swift": [1773990105, 157452593]
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/ReviewSchedule.swift": [1773990109, 171430480]
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/SM2Algorithm.swift": [1773990116, 99702701]

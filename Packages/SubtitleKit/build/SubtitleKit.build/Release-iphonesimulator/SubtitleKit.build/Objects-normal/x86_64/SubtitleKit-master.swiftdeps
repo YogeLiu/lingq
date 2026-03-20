@@ -1,0 +1,7 @@
+version: "Apple Swift version 6.1 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)"
+options: "bc307c71693cead6eb46f6995bfee141cf7f65f7675d420e66d1c982946a8e78"
+build_start_time: [1773993819, 93320000]
+build_end_time: [1773993819, 530776000]
+inputs:
+  "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/Sources/SubtitleKit/CueSearcher.swift": !dirty [1773990793, 191677352]
+  "/Users/yoge/dev/swift/lingQ/Packages/SubtitleKit/Sources/SubtitleKit/SRTParser.swift": !dirty [1773991339, 531197749]

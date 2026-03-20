@@ -1,0 +1,25 @@
+{
+  "" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SRSKit-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/ReviewGrade.swift" : {
+    "index-unit-output-path" : "/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewGrade.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewGrade.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewGrade.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/ReviewSchedule.swift" : {
+    "index-unit-output-path" : "/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewSchedule.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewSchedule.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/ReviewSchedule.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/Sources/SRSKit/SM2Algorithm.swift" : {
+    "index-unit-output-path" : "/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SM2Algorithm.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SM2Algorithm.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/SRSKit/build/SRSKit.build/Release-iphonesimulator/SRSKit.build/Objects-normal/arm64/SM2Algorithm.o"
+  }
+}

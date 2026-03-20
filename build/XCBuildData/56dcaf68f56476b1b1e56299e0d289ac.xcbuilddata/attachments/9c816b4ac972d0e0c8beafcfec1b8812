@@ -1,0 +1,4 @@
+module SRSKit {
+header "SRSKit-Swift.h"
+export *
+}

@@ -1,0 +1,4 @@
+module SubtitleKit {
+header "SubtitleKit-Swift.h"
+export *
+}

@@ -1,0 +1,4 @@
+module VocabularyKit {
+header "VocabularyKit-Swift.h"
+export *
+}

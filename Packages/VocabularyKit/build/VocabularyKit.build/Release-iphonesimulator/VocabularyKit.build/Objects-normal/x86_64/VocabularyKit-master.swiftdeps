@@ -1,0 +1,7 @@
+version: "Apple Swift version 6.1 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)"
+options: "f055a5639913fad94900a89bcbfc757d7b952b52243b4e3781318f00b0aaa135"
+build_start_time: [1773993819, 93320000]
+build_end_time: [1773993819, 532067000]
+inputs:
+  "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/Sources/VocabularyKit/VocabularyStore.swift": !dirty [1773992948, 845950237]
+  "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/Sources/VocabularyKit/Word.swift": !dirty [1773992288, 277613194]

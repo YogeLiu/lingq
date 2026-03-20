@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master.swiftconstvalues",
+    "dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master.d",
+    "diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master.dia",
+    "emit-module-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyKit-master.swiftdeps"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/Sources/VocabularyKit/VocabularyStore.swift" : {
+    "index-unit-output-path" : "/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyStore.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyStore.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/VocabularyStore.o"
+  },
+  "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/Sources/VocabularyKit/Word.swift" : {
+    "index-unit-output-path" : "/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/Word.o",
+    "llvm-bc" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/Word.bc",
+    "object" : "/Users/yoge/dev/swift/lingQ/Packages/VocabularyKit/build/VocabularyKit.build/Release-iphonesimulator/VocabularyKit.build/Objects-normal/arm64/Word.o"
+  }
+}
