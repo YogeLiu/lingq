@@ -48,7 +48,7 @@ struct IntensiveReadingView: View {
                     .padding(.bottom, 100)
                 }
                 .onChange(of: currentCueIndex) { _, newIndex in
-                    if let newIndex, newIndex < cues.count {
+                    if let newIndex, !cues.isEmpty, newIndex < cues.count {
                         withAnimation {
                             proxy.scrollTo(cues[newIndex].id, anchor: .center)
                         }

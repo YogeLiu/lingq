@@ -69,7 +69,7 @@ struct FlowLayout: Layout {
             positions.append(CGPoint(x: x, y: y))
             rowHeight = max(rowHeight, size.height)
             x += size.width + spacing
-            maxX = max(maxX, x)
+            maxX = max(maxX, x - spacing)  // subtract trailing spacing from last item
         }
 
         return (CGSize(width: maxX, height: y + rowHeight), positions)
