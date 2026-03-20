@@ -1,3 +1,11 @@
 .superpowers/
 .claude/settings.local.json
 .agents/
+# Swift Package Manager build artifacts
+.build/
+*.resolved
+
+# Xcode derived data
+DerivedData/
+xcuserdata/
+*.xcworkspace/xcuserdata/

@@ -1,0 +1,44 @@
+name: lingQ
+options:
+  bundleIdPrefix: com.lingq
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+packages:
+  SharedModels:
+    path: Packages/SharedModels
+  SubtitleKit:
+    path: Packages/SubtitleKit
+  SRSKit:
+    path: Packages/SRSKit
+  AudioPlayerKit:
+    path: Packages/AudioPlayerKit
+  VocabularyKit:
+    path: Packages/VocabularyKit
+targets:
+  lingQ:
+    type: application
+    platform: iOS
+    sources:
+      - App/lingQ
+    dependencies:
+      - package: SharedModels
+      - package: SubtitleKit
+      - package: SRSKit
+      - package: AudioPlayerKit
+      - package: VocabularyKit
+    info:
+      path: App/lingQ/Info.plist
+      properties:
+        UILaunchScreen:
+          UIColorName: ""
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSMicrophoneUsageDescription: ""
