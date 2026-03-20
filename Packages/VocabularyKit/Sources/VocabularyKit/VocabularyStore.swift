@@ -3,7 +3,8 @@ import SwiftData
 import SharedModels
 import SRSKit
 
-public struct VocabularyStore: @unchecked Sendable {
+@MainActor
+public struct VocabularyStore {
     private let modelContext: ModelContext
 
     public init(modelContext: ModelContext) {
