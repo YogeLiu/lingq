@@ -74,9 +74,13 @@ struct IntensiveReadingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showLookup) {
             if let word = selectedWord {
-                // TODO: Task 10 - WordLookupPopup
-                Text("Looking up: \(word)")
-                    .presentationDetents([.medium])
+                WordLookupPopup(
+                    word: word,
+                    contextSentence: searcher?.cue(at: player.currentTime)?.text,
+                    courseId: course.id,
+                    modelContext: modelContext
+                )
+                .presentationDetents([.medium])
             }
         }
         .task {
