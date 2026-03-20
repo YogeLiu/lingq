@@ -2,7 +2,7 @@
 .claude/settings.local.json
 .agents/
 # Swift Package Manager build artifacts
-.build/
+**/.build/
 *.resolved
 
 # Xcode derived data

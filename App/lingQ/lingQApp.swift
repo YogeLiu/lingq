@@ -7,5 +7,6 @@ struct lingQApp: App {
         WindowGroup {
             ContentView()
         }
+        // TODO: Task 7 — add .modelContainer(for: [Course.self, Word.self])
     }
 }
