@@ -1,3 +1,5 @@
+import Foundation
+
 enum ImmersiveMode: String, CaseIterable {
     case focused = "FOCUSED"
     case ambient = "AMBIENT"

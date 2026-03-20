@@ -9,11 +9,12 @@ final class ThemeManager {
     }
 
     var mode: ThemeMode {
-        get { ThemeMode(rawValue: storedMode) ?? .system }
-        set { storedMode = newValue.rawValue }
+        didSet { UserDefaults.standard.set(mode.rawValue, forKey: "themeMode") }
     }
 
-    @AppStorage("themeMode") private var storedMode = ThemeMode.system.rawValue
+    init() {
+        self.mode = ThemeMode(rawValue: UserDefaults.standard.string(forKey: "themeMode") ?? "") ?? .system
+    }
 
     var colorScheme: ColorScheme? {
         switch mode {

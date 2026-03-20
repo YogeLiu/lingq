@@ -28,7 +28,7 @@ struct MiniPlayerView: View {
                         .font(.title2)
                 }
                 .frame(width: 48, height: 48)
-                .background(.accent, in: Circle())
+                .background(Color.accentColor, in: Circle())
                 .foregroundStyle(.white)
 
                 Button(action: onNext) {

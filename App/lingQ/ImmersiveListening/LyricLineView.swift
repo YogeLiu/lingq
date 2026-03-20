@@ -18,7 +18,7 @@ struct LyricLineView: View {
             .multilineTextAlignment(.center)
             .opacity(state.opacity)
             .scaleEffect(state.isCurrent ? 1.0 : 0.95)
-            .shadow(color: state.isCurrent ? .accent.opacity(0.3) : .clear, radius: 20)
+            .shadow(color: state.isCurrent ? Color.accentColor.opacity(0.3) : .clear, radius: 20)
             .animation(.easeInOut(duration: 0.5), value: state.isCurrent)
             .onTapGesture(perform: onTap)
             .padding(.vertical, 8)

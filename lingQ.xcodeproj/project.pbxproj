@@ -45,7 +45,7 @@
 		241A27492F1F1449F854EDE9 /* lingQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lingQApp.swift; sourceTree = "<group>"; };
 		33D19867710E3D8A89947417 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
-		4BC8FA14D8B5C7D608C9C398 /* lingQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = lingQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BC8FA14D8B5C7D608C9C398 /* lingQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lingQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0344E367B92D4630A5317E /* LyricsCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsCanvasView.swift; sourceTree = "<group>"; };
 		4C04C8A5BEF3FAD7AC72686F /* TappableWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableWordView.swift; sourceTree = "<group>"; };
 		550D37F2BF53178992560B6C /* VocabularyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyListView.swift; sourceTree = "<group>"; };
@@ -237,8 +237,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 1F60F3FAC7D10E05464768A2 /* Build configuration list for PBXProject "lingQ" */;
 			developmentRegion = en;
@@ -428,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = WV752FV7BA;
 				INFOPLIST_FILE = App/lingQ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -444,6 +443,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = WV752FV7BA;
 				INFOPLIST_FILE = App/lingQ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

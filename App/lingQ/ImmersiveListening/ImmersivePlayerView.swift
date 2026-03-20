@@ -12,7 +12,7 @@ struct ImmersivePlayerView: View {
             // 进度条
             VStack(spacing: 4) {
                 ProgressView(value: player.currentTime, total: max(player.duration, 1))
-                    .tint(.accent)
+                    .tint(Color.accentColorColor)
                 HStack {
                     Text(formatTime(player.currentTime))
                     Spacer()
@@ -37,7 +37,7 @@ struct ImmersivePlayerView: View {
                         .font(.largeTitle)
                 }
                 .frame(width: 64, height: 64)
-                .background(.accent, in: Circle())
+                .background(Color.accentColorColor, in: Circle())
                 .foregroundStyle(.white)
 
                 Button(action: onNext) {
@@ -55,7 +55,7 @@ struct ImmersivePlayerView: View {
                 ForEach(ImmersiveMode.allCases, id: \.self) { m in
                     VStack(spacing: 4) {
                         Circle()
-                            .fill(m == mode ? Color.accent : .clear)
+                            .fill(m == mode ? Color.accentColor : .clear)
                             .frame(width: 4, height: 4)
                         Text(m.rawValue)
                             .font(.caption.bold())
