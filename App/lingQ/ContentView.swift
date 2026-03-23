@@ -19,6 +19,9 @@ struct ContentView: View {
                         selectedTab = .me
                         importRequestID += 1
                     }
+                    .navigationDestination(for: Course.self) { course in
+                        IntensiveReadingView(course: course)
+                    }
                 }
             }
 

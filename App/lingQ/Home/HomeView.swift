@@ -32,41 +32,32 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 28) {
-                SectionHeader(
-                    "继续听",
-                    eyebrow: "Listening",
-                    subtitle: continueCourse == nil ? "先导入第一门课程，建立你的听力节奏。" : "从上次停下的位置继续，保持输入不中断。"
-                )
-
+            VStack(alignment: .leading, spacing: 24) {
                 ContinueListeningCard(course: continueCourse)
 
-                SectionHeader(
-                    "最近课程",
-                    subtitle: recentCourses.isEmpty ? "你的课程会出现在这里。" : "从最近导入或最近播放的课程中继续。"
-                )
+                if !recentCourses.isEmpty {
+                    SectionHeader("最近课程")
+                    RecentCourseStrip(courses: recentCourses)
+                }
 
-                RecentCourseStrip(courses: recentCourses)
-
-                SectionHeader(
-                    "今日学习",
-                    subtitle: "听力、词汇和复习都围绕当前会话组织。"
-                )
-
+                SectionHeader("学习概览")
                 LearningSummaryCard(
                     dueReviewCount: dueReviewCount,
                     recentWordCount: recentNewWordCount,
                     listeningMinutes: totalListeningMinutes
                 )
-
-                ImportPromptCard(onImportTap: onImportTap)
             }
             .padding(.horizontal, 20)
-            .padding(.top, 20)
+            .padding(.top, 12)
             .padding(.bottom, 32)
         }
         .background(AppTheme.background.ignoresSafeArea())
         .navigationTitle("Playlist")
         .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            Button("导入", systemImage: "plus") {
+                onImportTap()
+            }
+        }
     }
 }
