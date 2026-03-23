@@ -2,8 +2,14 @@ import Foundation
 
 enum BookmarkManager {
     static func createBookmark(for url: URL) throws -> Data {
-        try url.bookmarkData(
-            options: .minimalBookmark,
+        #if os(macOS)
+        let options: URL.BookmarkCreationOptions = [.withSecurityScope]
+        #else
+        let options: URL.BookmarkCreationOptions = .minimalBookmark
+        #endif
+
+        return try url.bookmarkData(
+            options: options,
             includingResourceValuesForKeys: nil,
             relativeTo: nil
         )
@@ -11,9 +17,15 @@ enum BookmarkManager {
 
     static func resolveBookmark(_ data: Data) throws -> URL {
         var isStale = false
+        #if os(macOS)
+        let options: URL.BookmarkResolutionOptions = [.withSecurityScope]
+        #else
+        let options: URL.BookmarkResolutionOptions = []
+        #endif
+
         let url = try URL(
             resolvingBookmarkData: data,
-            options: [],
+            options: options,
             relativeTo: nil,
             bookmarkDataIsStale: &isStale
         )
