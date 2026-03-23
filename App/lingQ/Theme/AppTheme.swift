@@ -1,22 +1,27 @@
 import SwiftUI
 
 enum AppTheme {
-    // Dark mode colors
-    static let darkBackground = Color(hex: "0D1117")
-    static let darkSurface = Color(hex: "1C2333")
-    static let darkAccent = Color(hex: "4A90D9")
+    static let background = Color(uiColor: .systemGroupedBackground)
+    static let elevatedBackground = Color(uiColor: .secondarySystemGroupedBackground)
+    static let surface = Color.white
+    static let surfaceMuted = Color(uiColor: .tertiarySystemGroupedBackground)
 
-    // Light mode colors
-    static let lightBackground = Color(hex: "F8F9FB")
-    static let lightSurface = Color.white
-    static let lightAccent = Color(hex: "6C5CE7")
+    static let brandAccent = Color(uiColor: .systemBlue)
+    static let brandAccentMuted = Color(uiColor: .systemBlue).opacity(0.14)
 
-    // Word level colors
-    static let level1Color = Color.green
-    static let level2Color = Color.purple
-    static let level3Color = Color.blue
-    static let knownColor = Color.gray
-    static let newColor = Color.cyan.opacity(0.5)
+    static let textPrimary = Color(uiColor: .label)
+    static let textSecondary = Color(uiColor: .secondaryLabel)
+    static let textTertiary = Color(uiColor: .tertiaryLabel)
+
+    static let success = Color(uiColor: .systemGreen)
+    static let warning = Color(uiColor: .systemOrange)
+    static let danger = Color(uiColor: .systemRed)
+
+    static let level1Color = Color(uiColor: .systemGreen)
+    static let level2Color = Color(uiColor: .systemBlue)
+    static let level3Color = Color(uiColor: .systemPurple)
+    static let knownColor = Color(uiColor: .systemGray)
+    static let newColor = Color(uiColor: .systemGray3)
 }
 
 extension Color {
