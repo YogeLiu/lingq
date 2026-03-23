@@ -34,6 +34,6 @@ struct ImportPromptCard: View {
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.06), radius: 8, y: 4)
+        .shadow(color: Color.black.opacity(0.06), radius: 6, y: 3)
     }
 }

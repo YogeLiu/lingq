@@ -165,7 +165,7 @@ struct PlaybackDetailView: View {
         }
         .padding(20)
         .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.04), radius: 6, y: 3)
+        .shadow(color: Color.black.opacity(0.06), radius: 6, y: 3)
     }
 
     private var actionButtons: some View {
@@ -262,6 +262,6 @@ private struct MetricPill: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }

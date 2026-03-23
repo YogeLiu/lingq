@@ -41,6 +41,6 @@ struct EmptyStateCard: View {
         .padding(24)
         .frame(maxWidth: .infinity)
         .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.04), radius: 6, y: 3)
+        .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
     }
 }

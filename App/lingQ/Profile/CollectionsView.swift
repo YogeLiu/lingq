@@ -21,7 +21,7 @@ struct CollectionsView: View {
                     ForEach(courses) { course in
                         NavigationLink(value: course) {
                             HStack(spacing: 14) {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
                                     .fill(AppTheme.surfaceMuted)
                                     .frame(width: 48, height: 48)
                                     .overlay {
