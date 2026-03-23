@@ -33,7 +33,7 @@ struct ContentView: View {
 
             Tab("Me", systemImage: "person.crop.circle", value: .me) {
                 NavigationStack {
-                    LearningView(importRequestID: importRequestID)
+                    MeView(importRequestID: importRequestID)
                 }
             }
         }
