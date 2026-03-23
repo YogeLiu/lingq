@@ -4,6 +4,8 @@ import SharedModels
 import VocabularyKit
 
 struct VocabularyListView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Course.createdAt, order: .reverse) private var courses: [Course]
     @Query(sort: \Word.createdAt, order: .reverse) private var words: [Word]
     @State private var filterLevel: WordLevel?
     @State private var searchText = ""
@@ -16,9 +18,28 @@ struct VocabularyListView: View {
         }
     }
 
+    private var courseLookup: [UUID: String] {
+        Dictionary(uniqueKeysWithValues: courses.map { ($0.id, $0.title) })
+    }
+
+    private var groupedByDate: [VocabularySection] {
+        let calendar = Calendar.current
+        let grouped = Dictionary(grouping: filteredWords) { word in
+            calendar.startOfDay(for: word.createdAt)
+        }
+        return grouped
+            .sorted { $0.key > $1.key }
+            .map { date, words in
+                VocabularySection(
+                    id: date.ISO8601Format(),
+                    title: date.formatted(date: .abbreviated, time: .omitted),
+                    words: words
+                )
+            }
+    }
+
     var body: some View {
         List {
-            // 筛选
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     FilterChip(title: "全部", isSelected: filterLevel == nil) {
@@ -38,17 +59,39 @@ struct VocabularyListView: View {
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
 
-            // 单词列表
-            ForEach(filteredWords) { word in
-                WordCardView(word: word)
-            }
-            .onDelete { indexSet in
-                // 删除逻辑
+            ForEach(groupedByDate) { section in
+                Section {
+                    ForEach(section.words) { word in
+                        WordCardView(word: word, courseTitle: word.courseId.flatMap { courseLookup[$0] })
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
+                    .onDelete { offsets in
+                        deleteWords(in: section, at: offsets)
+                    }
+                } header: {
+                    Text(section.title)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(AppTheme.textSecondary)
+                }
             }
         }
+        .listStyle(.plain)
         .searchable(text: $searchText, prompt: "搜索生词")
-        .navigationTitle("生词本")
+        .navigationTitle("Vocabulary")
     }
+
+    private func deleteWords(in section: VocabularySection, at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(section.words[index])
+        }
+    }
+}
+
+struct VocabularySection: Identifiable {
+    let id: String
+    let title: String
+    let words: [Word]
 }
 
 struct FilterChip: View {
@@ -61,7 +104,7 @@ struct FilterChip: View {
             .font(.caption.bold())
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
-            .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.15), in: Capsule())
+            .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.12), in: Capsule())
             .foregroundStyle(isSelected ? .white : .primary)
             .onTapGesture(perform: onTap)
     }
