@@ -8,21 +8,19 @@ struct ImmersivePlayerView: View {
     let onNext: () -> Void
 
     var body: some View {
-        VStack(spacing: 12) {
-            // 进度条
-            VStack(spacing: 4) {
-                ProgressView(value: player.currentTime, total: max(player.duration, 1))
-                    .tint(Color.accentColor)
+        PlayerSurface {
+            VStack(spacing: 6) {
+                ProgressView(value: progressValue, total: progressTotal)
+                    .tint(AppTheme.brandAccent)
                 HStack {
-                    Text(formatTime(player.currentTime))
+                    Text(formatTime(progressValue))
                     Spacer()
-                    Text(formatTime(player.duration))
+                    Text(formatTime(progressTotal))
                 }
                 .font(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.textSecondary)
             }
 
-            // 控制按钮
             HStack(spacing: 20) {
                 Button { player.skipBackward(10) } label: {
                     Image(systemName: "gobackward.10")
@@ -36,8 +34,8 @@ struct ImmersivePlayerView: View {
                     Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                         .font(.largeTitle)
                 }
-                .frame(width: 64, height: 64)
-                .background(Color.accentColor, in: Circle())
+                .frame(width: 56, height: 56)
+                .background(AppTheme.brandAccent, in: Circle())
                 .foregroundStyle(.white)
 
                 Button(action: onNext) {
@@ -49,30 +47,47 @@ struct ImmersivePlayerView: View {
                 }
             }
             .font(.title3)
+            .foregroundStyle(AppTheme.textPrimary)
 
-            // 模式切换标签
-            HStack(spacing: 32) {
+            HStack(spacing: 12) {
                 ForEach(ImmersiveMode.allCases, id: \.self) { m in
-                    VStack(spacing: 4) {
-                        Circle()
-                            .fill(m == mode ? Color.accentColor : .clear)
-                            .frame(width: 4, height: 4)
-                        Text(m.rawValue)
-                            .font(.caption.bold())
-                            .foregroundStyle(m == mode ? .primary : .secondary)
+                    Button {
+                        mode = m
+                    } label: {
+                        Text(m.title)
+                            .font(.caption.weight(.semibold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(m == mode ? AppTheme.brandAccent.opacity(0.12) : Color.clear, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .strokeBorder(m == mode ? AppTheme.brandAccent.opacity(0.3) : Color.clear)
+                            }
                     }
-                    .onTapGesture { mode = m }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(m == mode ? AppTheme.brandAccent : AppTheme.textSecondary)
                 }
             }
         }
-        .padding(20)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
         .padding()
     }
 
+    private var progressTotal: TimeInterval {
+        let duration = player.duration
+        guard duration.isFinite, duration > 0 else { return 1 }
+        return duration
+    }
+
+    private var progressValue: TimeInterval {
+        let time = player.currentTime
+        guard time.isFinite else { return 0 }
+        return min(max(time, 0), progressTotal)
+    }
+
     private func formatTime(_ time: TimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = Int(time) % 60
+        let safeTime = time.isFinite ? max(time, 0) : 0
+        let minutes = Int(safeTime) / 60
+        let seconds = Int(safeTime) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }

@@ -4,30 +4,32 @@ import SharedModels
 struct LyricsCanvasView: View {
     let cues: [SubtitleCue]
     let currentIndex: Int?
+    let mode: ImmersiveMode
     let onCueTap: (SubtitleCue) -> Void
 
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 16) {
-                    Spacer(minLength: 200)
+                VStack(alignment: .leading, spacing: 6) {
+                    Spacer(minLength: 120)
 
                     ForEach(Array(cues.enumerated()), id: \.element.id) { index, cue in
                         LyricLineView(
                             text: cue.text,
                             state: lyricState(for: index),
+                            mode: mode,
                             onTap: { onCueTap(cue) }
                         )
                         .id(cue.id)
                     }
 
-                    Spacer(minLength: 200)
+                    Spacer(minLength: 300)
                 }
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 24)
             }
             .onChange(of: currentIndex) { _, newIndex in
                 if let id = newIndex.flatMap({ cues[safe: $0]?.id }) {
-                    withAnimation(.easeInOut(duration: 0.6)) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
                         proxy.scrollTo(id, anchor: .center)
                     }
                 }
