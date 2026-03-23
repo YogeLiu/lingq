@@ -35,6 +35,10 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 24) {
                 ContinueListeningCard(course: continueCourse)
 
+                if recentCourses.isEmpty {
+                    ImportPromptCard(onImportTap: onImportTap)
+                }
+
                 if !recentCourses.isEmpty {
                     SectionHeader("最近课程")
                     RecentCourseStrip(courses: recentCourses)
@@ -46,6 +50,10 @@ struct HomeView: View {
                     recentWordCount: recentNewWordCount,
                     listeningMinutes: totalListeningMinutes
                 )
+
+                if !recentCourses.isEmpty {
+                    ImportPromptCard(onImportTap: onImportTap)
+                }
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)

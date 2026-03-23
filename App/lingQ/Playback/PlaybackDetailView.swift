@@ -1,14 +1,12 @@
 import SwiftUI
-import SwiftData
 import SharedModels
 import SubtitleKit
 import AudioPlayerKit
-import VocabularyKit
+import UIKit
 
 struct PlaybackDetailView: View {
     let course: Course
 
-    @Environment(\.modelContext) private var modelContext
     @State private var player = AudioPlayer()
     @State private var cues: [SubtitleCue] = []
     @State private var searcher: CueSearcher?
@@ -16,10 +14,15 @@ struct PlaybackDetailView: View {
     @State private var hasAudioSecurityScope = false
     @State private var loadState: LoadState = .idle
     @State private var showImmersive = false
-    @State private var showReading = false
+    @State private var abRepeatActive = false
+
+    private let availableSpeeds: [Float] = [0.75, 1.0, 1.25]
 
     private enum LoadState: Equatable {
-        case idle, loading, ready, failed(String)
+        case idle
+        case loading
+        case ready
+        case failed(String)
     }
 
     var body: some View {
@@ -50,11 +53,9 @@ struct PlaybackDetailView: View {
             case .ready:
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 24) {
-                        artworkSection
+                        coverImageSection
                         titleSection
-                        summarySection
-                        playerControls
-                        actionButtons
+                        controlsSection
                     }
                     .padding(20)
                 }
@@ -63,6 +64,7 @@ struct PlaybackDetailView: View {
         .background(AppTheme.background.ignoresSafeArea())
         .navigationTitle(course.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .task {
             await loadContent()
         }
@@ -76,13 +78,11 @@ struct PlaybackDetailView: View {
                 )
             }
         }
-        .navigationDestination(isPresented: $showReading) {
-            IntensiveReadingView(course: course)
-        }
         .onDisappear {
             course.playbackPosition = player.currentTime
             course.lastPlayedAt = Date()
             player.pause()
+            player.loopRange = nil
             if hasAudioSecurityScope, let audioResourceURL {
                 audioResourceURL.stopAccessingSecurityScopedResource()
             }
@@ -91,17 +91,32 @@ struct PlaybackDetailView: View {
         }
     }
 
-    // MARK: - Sections
-
-    private var artworkSection: some View {
-        RoundedRectangle(cornerRadius: 20, style: .continuous)
-            .fill(AppTheme.surfaceMuted)
-            .frame(height: 200)
-            .overlay {
-                Image(systemName: "headphones")
-                    .font(.system(size: 48))
-                    .foregroundStyle(AppTheme.textTertiary)
+    private var coverImageSection: some View {
+        Group {
+            if let coverURL = course.resolvedCoverImageURL,
+               let coverImage = UIImage(contentsOfFile: coverURL.path) {
+                Image(uiImage: coverImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 260)
+                    .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+            } else {
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [AppTheme.brandAccent.opacity(0.26), AppTheme.surfaceMuted, .white],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(height: 260)
+                    .overlay {
+                        Image(systemName: "headphones")
+                            .font(.system(size: 58, weight: .semibold))
+                            .foregroundStyle(AppTheme.brandAccent)
+                    }
             }
+        }
     }
 
     private var titleSection: some View {
@@ -119,122 +134,65 @@ struct PlaybackDetailView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private var summarySection: some View {
-        HStack(spacing: 16) {
-            MetricPill(label: "字幕", value: "\(cues.count) 句")
-            MetricPill(label: "进度", value: formatTime(course.playbackPosition))
-        }
-        .frame(maxWidth: .infinity)
+    private var controlsSection: some View {
+        PlaybackControlCard(
+            player: player,
+            availableSpeeds: availableSpeeds,
+            isLoopActive: abRepeatActive,
+            onSubtitleTap: cues.isEmpty ? nil : { showImmersive = true },
+            onPrevious: jumpToPreviousCue,
+            onNext: jumpToNextCue,
+            onSkipBackward: { player.skipBackward(10) },
+            onSkipForward: { player.skipForward(10) },
+            onToggleLoop: toggleABRepeat
+        )
     }
-
-    private var playerControls: some View {
-        VStack(spacing: 12) {
-            if loadState == .ready {
-                ProgressView(value: progressValue, total: progressTotal)
-                    .tint(AppTheme.brandAccent)
-
-                HStack {
-                    Text(formatTime(progressValue))
-                    Spacer()
-                    Text(formatTime(progressTotal))
-                }
-                .font(.caption.monospacedDigit())
-                .foregroundStyle(AppTheme.textTertiary)
-            }
-
-            HStack(spacing: 24) {
-                Button { player.skipBackward(10) } label: {
-                    Image(systemName: "gobackward.10")
-                        .font(.title3)
-                }
-
-                Button { player.toggle() } label: {
-                    Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
-                        .font(.largeTitle)
-                }
-                .frame(width: 64, height: 64)
-                .background(AppTheme.brandAccent, in: Circle())
-                .foregroundStyle(.white)
-
-                Button { player.skipForward(10) } label: {
-                    Image(systemName: "goforward.10")
-                        .font(.title3)
-                }
-            }
-            .foregroundStyle(AppTheme.textPrimary)
-        }
-        .padding(20)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.06), radius: 6, y: 3)
-    }
-
-    private var actionButtons: some View {
-        VStack(spacing: 12) {
-            Button {
-                showImmersive = true
-            } label: {
-                Label("沉浸字幕", systemImage: "text.alignleft")
-                    .font(.subheadline.weight(.semibold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(AppTheme.brandAccent)
-
-            Button {
-                showReading = true
-            } label: {
-                Label("精读模式", systemImage: "book")
-                    .font(.subheadline.weight(.semibold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-            }
-            .buttonStyle(.bordered)
-            .tint(AppTheme.brandAccent)
-        }
-    }
-
-    // MARK: - Helpers
 
     private var subtitleSummary: String {
         if let lastPlayedAt = course.lastPlayedAt {
             let formatter = RelativeDateTimeFormatter()
             formatter.unitsStyle = .full
-            return "上次播放于 \(formatter.localizedString(for: lastPlayedAt, relativeTo: Date()))"
+            return "共 \(cues.count) 句字幕，上次播放于 \(formatter.localizedString(for: lastPlayedAt, relativeTo: Date()))"
         }
-        return "刚导入，准备开始第一遍输入"
+        return "共 \(cues.count) 句字幕，刚导入，准备开始第一遍输入"
     }
 
-    private var progressTotal: TimeInterval {
-        let duration = player.duration
-        guard duration.isFinite, duration > 0 else { return 1 }
-        return duration
+    private func toggleABRepeat() {
+        if abRepeatActive {
+            player.loopRange = nil
+            abRepeatActive = false
+            return
+        }
+
+        guard let cue = searcher?.cue(at: player.currentTime) else { return }
+        player.loopRange = cue.startTime...cue.endTime
+        abRepeatActive = true
     }
 
-    private var progressValue: TimeInterval {
-        let time = player.currentTime
-        guard time.isFinite else { return 0 }
-        return min(max(time, 0), progressTotal)
+    private func jumpToPreviousCue() {
+        let currentTime = player.currentTime
+        if let cue = cues.last(where: { $0.startTime < max(currentTime - 0.2, 0) }) {
+            player.seek(to: cue.startTime)
+        } else {
+            player.seek(to: 0)
+        }
     }
 
-    private func formatTime(_ time: TimeInterval) -> String {
-        let safeTime = time.isFinite ? max(time, 0) : 0
-        let minutes = Int(safeTime) / 60
-        let seconds = Int(safeTime) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+    private func jumpToNextCue() {
+        let currentTime = player.currentTime
+        if let cue = cues.first(where: { $0.startTime > currentTime + 0.2 }) {
+            player.seek(to: cue.startTime)
+        }
     }
 
     private func loadContent() async {
         loadState = .loading
         do {
-            let subtitleURL = try BookmarkManager.resolveBookmark(course.subtitleBookmark)
-            let hasSubtitleScope = subtitleURL.startAccessingSecurityScopedResource()
-            defer { if hasSubtitleScope { subtitleURL.stopAccessingSecurityScopedResource() } }
+            let subtitleURL = try resolveSubtitleURL()
             cues = try SRTParser.parse(fileURL: subtitleURL)
             searcher = CueSearcher(cues: cues)
 
-            let audioURL = try BookmarkManager.resolveBookmark(course.audioBookmark)
-            hasAudioSecurityScope = audioURL.startAccessingSecurityScopedResource()
+            let audioURL = try resolveAudioURL()
             audioResourceURL = audioURL
             try player.load(url: audioURL)
             if course.playbackPosition > 0 {
@@ -245,23 +203,32 @@ struct PlaybackDetailView: View {
             loadState = .failed("文件读取失败，可能是导入文件已移动或权限失效。请确认源文件仍存在后重试。")
         }
     }
-}
 
-private struct MetricPill: View {
-    let label: String
-    let value: String
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text(value)
-                .font(.headline.weight(.bold))
-                .foregroundStyle(AppTheme.textPrimary)
-            Text(label)
-                .font(.caption)
-                .foregroundStyle(AppTheme.textSecondary)
+    private func resolveSubtitleURL() throws -> URL {
+        if let resolvedSubtitleURL = course.resolvedSubtitleURL,
+           FileManager.default.fileExists(atPath: resolvedSubtitleURL.path) {
+            return resolvedSubtitleURL
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+        let url = try BookmarkManager.resolveBookmark(course.subtitleBookmark)
+        let hasScope = url.startAccessingSecurityScopedResource()
+        defer {
+            if hasScope {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        return url
+    }
+
+    private func resolveAudioURL() throws -> URL {
+        if let resolvedAudioURL = course.resolvedAudioURL,
+           FileManager.default.fileExists(atPath: resolvedAudioURL.path) {
+            hasAudioSecurityScope = false
+            return resolvedAudioURL
+        }
+
+        let url = try BookmarkManager.resolveBookmark(course.audioBookmark)
+        hasAudioSecurityScope = url.startAccessingSecurityScopedResource()
+        return url
     }
 }

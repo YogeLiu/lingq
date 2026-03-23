@@ -4,7 +4,6 @@ import SharedModels
 struct LyricLineView: View {
     let text: String
     let state: LyricState
-    let mode: ImmersiveMode
     let onTap: () -> Void
 
     enum LyricState {
@@ -20,8 +19,7 @@ struct LyricLineView: View {
             .lineSpacing(4)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, state.isCurrent ? 8 : 2)
-            .opacity(state.opacity(for: mode))
-            .animation(.easeInOut(duration: 0.4), value: state.isCurrent)
+            .opacity(state.opacity)
             .onTapGesture(perform: onTap)
     }
 
@@ -50,7 +48,7 @@ extension LyricLineView.LyricState {
         return false
     }
 
-    func opacity(for mode: ImmersiveMode) -> Double {
+    var opacity: Double {
         switch self {
         case .current:
             return 1.0

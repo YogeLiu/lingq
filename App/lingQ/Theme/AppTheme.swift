@@ -6,8 +6,8 @@ enum AppTheme {
     static let surface = Color.white
     static let surfaceMuted = Color(uiColor: .tertiarySystemGroupedBackground)
 
-    static let brandAccent = Color(uiColor: .systemBlue)
-    static let brandAccentMuted = Color(uiColor: .systemBlue).opacity(0.14)
+    static let brandAccent = Color(hex: "1463FF")
+    static let brandAccentMuted = Color(hex: "E7EFFF")
 
     static let textPrimary = Color(uiColor: .label)
     static let textSecondary = Color(uiColor: .secondaryLabel)
@@ -16,12 +16,6 @@ enum AppTheme {
     static let success = Color(uiColor: .systemGreen)
     static let warning = Color(uiColor: .systemOrange)
     static let danger = Color(uiColor: .systemRed)
-
-    static let level1Color = Color(uiColor: .systemGreen)
-    static let level2Color = Color(uiColor: .systemBlue)
-    static let level3Color = Color(uiColor: .systemPurple)
-    static let knownColor = Color(uiColor: .systemGray)
-    static let newColor = Color(uiColor: .systemGray3)
 }
 
 extension Color {

@@ -5,6 +5,7 @@ struct ContentView: View {
     private enum TabSelection: Hashable {
         case playlist
         case vocabulary
+        case review
         case me
     }
 
@@ -28,6 +29,12 @@ struct ContentView: View {
             Tab("Vocabulary", systemImage: "character.book.closed.fill", value: .vocabulary) {
                 NavigationStack {
                     VocabularyListView()
+                }
+            }
+
+            Tab("Review", systemImage: "rectangle.stack.badge.play", value: .review) {
+                NavigationStack {
+                    FlashcardReviewView()
                 }
             }
 

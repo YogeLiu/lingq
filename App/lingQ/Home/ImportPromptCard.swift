@@ -7,15 +7,15 @@ struct ImportPromptCard: View {
         VStack(alignment: .leading, spacing: 14) {
             SectionHeader(
                 "导入听力课程",
-                subtitle: "选择音频后，系统会尝试自动匹配同名字幕。"
+                subtitle: "现在改成 ZIP 导入，一次带上封面、音频和字幕。"
             )
 
             HStack(spacing: 12) {
-                Label("MP3 音频", systemImage: "waveform")
+                Label("ZIP 资源包", systemImage: "doc.zipper")
                     .font(.caption)
                     .foregroundStyle(AppTheme.textSecondary)
 
-                Label("SRT 字幕", systemImage: "captions.bubble")
+                Label("本地解压", systemImage: "internaldrive")
                     .font(.caption)
                     .foregroundStyle(AppTheme.textSecondary)
             }

@@ -48,3 +48,23 @@ import SharedModels
     #expect(cues.count == 1)
     #expect(cues[0].text == "Valid cue.")
 }
+
+@Test func parseNormalizesWhitespaceAndLooseTimestampSpacing() throws {
+    let srt = """
+    1
+    00:00:01,000-->00:00:04,000
+    Hello,\t   world !
+
+    2
+    00:00:05,000 --> 00:00:08,000
+    你 好
+    第二　行
+
+    """
+
+    let cues = try SRTParser.parse(string: srt)
+
+    #expect(cues.count == 2)
+    #expect(cues[0].text == "Hello, world!")
+    #expect(cues[1].text == "你好\n第二行")
+}

@@ -10,7 +10,7 @@ struct MeView: View {
     @Query(sort: \Course.createdAt, order: .reverse) private var courses: [Course]
     @Query(sort: \Word.createdAt, order: .reverse) private var words: [Word]
 
-    @State private var showImporter = false
+    @State private var showZipImport = false
 
     init(importRequestID: Int = 0) {
         self.importRequestID = importRequestID
@@ -22,6 +22,27 @@ struct MeView: View {
 
     var body: some View {
         List {
+            Section {
+                Button {
+                    showZipImport = true
+                } label: {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("从文件导入 ZIP")
+                                .font(.headline)
+                            Text("封面、音频、字幕会自动解压并入库")
+                                .font(.caption)
+                                .foregroundStyle(AppTheme.textSecondary)
+                        }
+                    } icon: {
+                        Image(systemName: "doc.zipper")
+                            .foregroundStyle(AppTheme.brandAccent)
+                    }
+                }
+            } header: {
+                Text("导入")
+            }
+
             Section {
                 NavigationLink {
                     CollectionsView()
@@ -72,7 +93,7 @@ struct MeView: View {
                         }
                     } icon: {
                         Image(systemName: "character.book.closed.fill")
-                            .foregroundStyle(AppTheme.level2Color)
+                            .foregroundStyle(AppTheme.brandAccent)
                     }
                 }
             } header: {
@@ -91,5 +112,13 @@ struct MeView: View {
         }
         .navigationTitle("Me")
         .navigationBarTitleDisplayMode(.large)
+        .onChange(of: importRequestID) { _, newValue in
+            if newValue > 0 {
+                showZipImport = true
+            }
+        }
+        .sheet(isPresented: $showZipImport) {
+            ZipImportView()
+        }
     }
 }

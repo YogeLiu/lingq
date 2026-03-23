@@ -1,5 +1,6 @@
 import SwiftUI
 import SharedModels
+import UIKit
 
 struct RecentCourseStrip: View {
     let courses: [Course]
@@ -16,15 +17,16 @@ struct RecentCourseStrip: View {
                 HStack(spacing: 12) {
                     ForEach(courses.prefix(8)) { course in
                         NavigationLink(value: course) {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text(course.title)
-                                    .font(.headline)
-                                    .foregroundStyle(AppTheme.textPrimary)
-                                    .lineLimit(2)
+                            VStack(alignment: .leading, spacing: 12) {
+                                coverArtwork(for: course)
+                                    .frame(height: 110)
 
-                                Spacer(minLength: 0)
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(course.title)
+                                        .font(.headline)
+                                        .foregroundStyle(AppTheme.textPrimary)
+                                        .lineLimit(2)
 
-                                VStack(alignment: .leading, spacing: 4) {
                                     if course.playbackPosition > 0 {
                                         Label("停在 \(formatTime(course.playbackPosition))", systemImage: "play.circle.fill")
                                             .font(.caption)
@@ -46,7 +48,7 @@ struct RecentCourseStrip: View {
                                     }
                                 }
                             }
-                            .frame(width: 200, height: 140, alignment: .leading)
+                            .frame(width: 214, alignment: .leading)
                             .padding(16)
                             .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
@@ -55,6 +57,31 @@ struct RecentCourseStrip: View {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func coverArtwork(for course: Course) -> some View {
+        if let coverURL = course.resolvedCoverImageURL,
+           let coverImage = UIImage(contentsOfFile: coverURL.path) {
+            Image(uiImage: coverImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        } else {
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [AppTheme.brandAccent.opacity(0.18), AppTheme.surfaceMuted, .white],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay {
+                    Image(systemName: "headphones")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(AppTheme.brandAccent)
+                }
         }
     }
 

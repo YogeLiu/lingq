@@ -74,7 +74,7 @@ struct LearningView: View {
                             .padding(.horizontal, 14)
                             .padding(.vertical, 10)
                             .background(AppTheme.brandAccent, in: Capsule())
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.white)
                     }
                 }
                 .buttonStyle(.plain)
@@ -95,7 +95,7 @@ struct LearningView: View {
                     EmptyStateCard(
                         icon: "character.book.closed",
                         title: "还没有新增词",
-                        message: "在播放或精读过程中点词标记后，这里会出现最近的新词。"
+                        message: "在播放页的字幕模式里点词保存后，这里会出现最近的新词。"
                     )
                 } else {
                     LazyVStack(spacing: 12) {

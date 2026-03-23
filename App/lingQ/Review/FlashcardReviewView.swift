@@ -27,11 +27,10 @@ struct FlashcardReviewView: View {
                 ContentUnavailableView {
                     Label("暂无待复习单词", systemImage: "sparkles")
                 } description: {
-                    Text("在精读模式中标记生词后，会按照间隔重复计划出现在这里")
+                    Text("在字幕里点词保存后，会按照间隔重复计划出现在这里。")
                 }
             } else if currentIndex < reviewWords.count {
                 VStack {
-                    // 进度
                     Text("\(currentIndex + 1) / \(dueCount)")
                         .font(.caption.bold())
                         .foregroundStyle(.secondary)

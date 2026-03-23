@@ -1,5 +1,4 @@
 import SwiftUI
-import SharedModels
 import VocabularyKit
 
 struct WordCardView: View {
@@ -15,17 +14,17 @@ struct WordCardView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
                 Text(word.text)
-                    .font(.headline)
+                    .font(.headline.weight(.semibold))
                     .foregroundStyle(AppTheme.textPrimary)
 
                 Spacer()
 
-                Text(levelLabel)
+                Text(word.isDueForReview ? "待复习" : "已保存")
                     .font(.caption.weight(.semibold))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(colorForLevel(word.level).opacity(0.12), in: Capsule())
-                    .foregroundStyle(colorForLevel(word.level))
+                    .background((word.isDueForReview ? AppTheme.warning : AppTheme.brandAccent).opacity(0.12), in: Capsule())
+                    .foregroundStyle(word.isDueForReview ? AppTheme.warning : AppTheme.brandAccent)
             }
 
             Text(word.definition ?? "还没有释义")
@@ -47,29 +46,24 @@ struct WordCardView: View {
                     .foregroundStyle(AppTheme.textTertiary)
                     .lineLimit(1)
             }
+
+            HStack(spacing: 12) {
+                HStack(spacing: 4) {
+                    Image(systemName: "clock")
+                    Text(word.createdAt, style: .date)
+                }
+                .font(.caption2)
+                .foregroundStyle(AppTheme.textTertiary)
+
+                if word.reviewCount > 0 {
+                    Label("复习 \(word.reviewCount) 次", systemImage: "arrow.triangle.2.circlepath")
+                        .font(.caption2)
+                        .foregroundStyle(AppTheme.textTertiary)
+                }
+            }
         }
         .padding(14)
         .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
-    }
-
-    private var levelLabel: String {
-        switch word.level {
-        case .level1: "初识"
-        case .level2: "熟悉"
-        case .level3: "掌握"
-        case .known: "已会"
-        case .new: "新词"
-        }
-    }
-
-    private func colorForLevel(_ level: WordLevel) -> Color {
-        switch level {
-        case .new: AppTheme.newColor
-        case .level1: AppTheme.level1Color
-        case .level2: AppTheme.level2Color
-        case .level3: AppTheme.level3Color
-        case .known: AppTheme.knownColor
-        }
     }
 }
