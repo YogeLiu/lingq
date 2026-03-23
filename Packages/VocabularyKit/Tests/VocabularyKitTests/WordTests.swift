@@ -6,10 +6,10 @@ import SharedModels
 @Test func wordDefaultValues() {
     let word = Word(text: "equilibrium", contextSentence: "A sense of equilibrium.")
     #expect(word.text == "equilibrium")
-    #expect(word.level == .new)
     #expect(word.reviewCount == 0)
     #expect(word.easeFactor == 2.5)
     #expect(word.contextSentence == "A sense of equilibrium.")
+    #expect(word.nextReviewAt != nil)
 }
 
 @Test func wordIsDueForReview() {

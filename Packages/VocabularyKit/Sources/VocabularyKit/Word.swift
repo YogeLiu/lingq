@@ -6,8 +6,6 @@ import SharedModels
 public final class Word {
     public var id: UUID
     public var text: String
-    public var lemma: String?
-    public var level: WordLevel
     public var definition: String?
     public var phonetic: String?
     public var contextSentence: String?
@@ -17,17 +15,15 @@ public final class Word {
     public var reviewCount: Int
     public var easeFactor: Double
 
-    public init(text: String, contextSentence: String?) {
+    public init(text: String, contextSentence: String?, courseId: UUID? = nil) {
         self.id = UUID()
         self.text = text.lowercased()
-        self.lemma = nil
-        self.level = .new
         self.definition = nil
         self.phonetic = nil
         self.contextSentence = contextSentence
-        self.courseId = nil
+        self.courseId = courseId
         self.createdAt = Date()
-        self.nextReviewAt = nil
+        self.nextReviewAt = Date() // schedule review immediately
         self.reviewCount = 0
         self.easeFactor = 2.5
     }

@@ -11,28 +11,26 @@ public struct VocabularyStore {
         self.modelContext = modelContext
     }
 
-    public func addWord(_ text: String, level: WordLevel, contextSentence: String?, courseId: UUID?) throws {
-        // Dedup: if word already exists, update its level
+    /// Save a word. If it already exists, update context sentence.
+    public func saveWord(_ text: String, definition: String? = nil, contextSentence: String?, courseId: UUID?) throws {
         let lowered = text.lowercased()
         let descriptor = FetchDescriptor<Word>(predicate: #Predicate { $0.text == lowered })
         if let existing = try modelContext.fetch(descriptor).first {
-            existing.level = level
             if let ctx = contextSentence { existing.contextSentence = ctx }
+            if let def = definition { existing.definition = def }
             return
         }
 
-        let word = Word(text: text, contextSentence: contextSentence)
-        word.level = level
-        word.courseId = courseId
+        let word = Word(text: text, contextSentence: contextSentence, courseId: courseId)
+        word.definition = definition
         modelContext.insert(word)
     }
 
-    public func updateLevel(word: Word, to level: WordLevel) {
-        word.level = level
-        if level == .level1 && word.nextReviewAt == nil {
-            // First time marked as learning — schedule first review
-            word.nextReviewAt = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-        }
+    /// Check if a word is already saved
+    public func isWordSaved(_ text: String) throws -> Bool {
+        let lowered = text.lowercased()
+        let descriptor = FetchDescriptor<Word>(predicate: #Predicate { $0.text == lowered })
+        return try modelContext.fetchCount(descriptor) > 0
     }
 
     public func gradeReview(word: Word, grade: ReviewGrade) {
@@ -58,11 +56,8 @@ public struct VocabularyStore {
         return try modelContext.fetch(descriptor)
     }
 
-    public func wordCount(level: WordLevel, courseId: UUID? = nil) throws -> Int {
-        let descriptor = FetchDescriptor<Word>(
-            predicate: #Predicate { $0.level == level }
-        )
-        return try modelContext.fetchCount(descriptor)
+    public func deleteWord(_ word: Word) {
+        modelContext.delete(word)
     }
 
     private func currentInterval(for word: Word) -> Int {
