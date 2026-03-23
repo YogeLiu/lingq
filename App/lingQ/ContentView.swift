@@ -20,7 +20,7 @@ struct ContentView: View {
                         importRequestID += 1
                     }
                     .navigationDestination(for: Course.self) { course in
-                        IntensiveReadingView(course: course)
+                        PlaybackDetailView(course: course)
                     }
                 }
             }
