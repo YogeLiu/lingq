@@ -1,25 +1,39 @@
 import SwiftUI
+import SharedModels
 
 struct ContentView: View {
+    private enum TabSelection: Hashable {
+        case playlist
+        case vocabulary
+        case me
+    }
+
+    @State private var selectedTab: TabSelection = .playlist
+    @State private var importRequestID = 0
+
     var body: some View {
-        TabView {
-            Tab("课程", systemImage: "books.vertical") {
+        TabView(selection: $selectedTab) {
+            Tab("Playlist", systemImage: "play.square.stack", value: .playlist) {
                 NavigationStack {
-                    CourseListView()
+                    HomeView {
+                        selectedTab = .me
+                        importRequestID += 1
+                    }
                 }
             }
 
-            Tab("生词本", systemImage: "character.book.closed") {
+            Tab("Vocabulary", systemImage: "character.book.closed.fill", value: .vocabulary) {
                 NavigationStack {
                     VocabularyListView()
                 }
             }
 
-            Tab("复习", systemImage: "sparkles.rectangle.stack") {
+            Tab("Me", systemImage: "person.crop.circle", value: .me) {
                 NavigationStack {
-                    FlashcardReviewView()
+                    LearningView(importRequestID: importRequestID)
                 }
             }
         }
+        .tint(AppTheme.brandAccent)
     }
 }
