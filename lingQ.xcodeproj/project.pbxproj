@@ -11,6 +11,7 @@
 		02A38D706A9D4E4C92B69905 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A38D706A9D4E4C92B69805 /* HomeView.swift */; };
 		02A38D706A9D4E4C92B69906 /* ContinueListeningCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A38D706A9D4E4C92B69806 /* ContinueListeningCard.swift */; };
 		02A38D706A9D4E4C92B6990A /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A38D706A9D4E4C92B6980A /* LearningView.swift */; };
+		0AAA00000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAA00000000000000000001 /* Assets.xcassets */; };
 		119B108CC9D96AF13A765407 /* ImmersiveListeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746AE2F3D12FC1234D8EB1CF /* ImmersiveListeningView.swift */; };
 		355F7FE4B519600F5DA0A01D /* SubtitleKit in Frameworks */ = {isa = PBXBuildFile; productRef = 945ED9977C82F8E91B1E86CA /* SubtitleKit */; };
 		40F57DA9D8B897EF9B087A13 /* lingQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A27492F1F1449F854EDE9 /* lingQApp.swift */; };
@@ -46,6 +47,7 @@
 		02A38D706A9D4E4C92B69806 /* ContinueListeningCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueListeningCard.swift; sourceTree = "<group>"; };
 		02A38D706A9D4E4C92B6980A /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
 		1411FEA98A21414959318286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AAAA00000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		241A27492F1F1449F854EDE9 /* lingQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lingQApp.swift; sourceTree = "<group>"; };
 		3F71FF1CD7798A185B027C7C /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		4BC8FA14D8B5C7D608C9C398 /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 		650107DAEA9DFB4B1FF93AFC /* Whisper */ = {
 			isa = PBXGroup;
 			children = (
+				AAAA00000000000000000001 /* Assets.xcassets */,
 				D3F5D541C98522B71CF7BE60 /* ContentView.swift */,
 				1411FEA98A21414959318286 /* Info.plist */,
 				241A27492F1F1449F854EDE9 /* lingQApp.swift */,
@@ -222,6 +225,7 @@
 			buildPhases = (
 				B7B5BD4032AA863FBCF5AED7 /* Sources */,
 				303A6B7DCB35932F004F988A /* Frameworks */,
+				0AAA00000000000000000002 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -246,7 +250,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1630;
 			};
 			buildConfigurationList = 1F60F3FAC7D10E05464768A2 /* Build configuration list for PBXProject "lingQ" */;
 			developmentRegion = en;
@@ -273,6 +277,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0AAA00000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AAA00000000000000000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B7B5BD4032AA863FBCF5AED7 /* Sources */ = {
@@ -348,8 +363,10 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = WV752FV7BA;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -413,8 +430,10 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = WV752FV7BA;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -440,7 +459,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = WV752FV7BA;
 				INFOPLIST_FILE = App/lingQ/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -459,7 +477,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = WV752FV7BA;
 				INFOPLIST_FILE = App/lingQ/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
