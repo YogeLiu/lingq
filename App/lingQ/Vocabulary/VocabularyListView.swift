@@ -43,10 +43,11 @@ struct VocabularyListView: View {
                     }
                 }
                 .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
         }
         .searchable(text: $searchText, prompt: "搜索生词")
         .background(AppTheme.background.ignoresSafeArea())
-        .navigationTitle("Vocabulary")
+        .navigationTitle("词汇")
     }
 }

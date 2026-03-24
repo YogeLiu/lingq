@@ -8,46 +8,54 @@ struct ContinueListeningCard: View {
     var body: some View {
         if let course {
             NavigationLink(value: course) {
-                HStack(spacing: 18) {
-                    coverArtwork(for: course)
-                        .frame(width: 108, height: 108)
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("继续收听")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(AppTheme.brandAccent)
+                        .tracking(1)
 
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("继续收听")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(AppTheme.brandAccent)
-
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(course.title)
-                                .font(.title3.weight(.bold))
-                                .foregroundStyle(AppTheme.textPrimary)
-                                .lineLimit(2)
-
-                            Text(playbackSummary(for: course))
-                                .font(.subheadline)
-                                .foregroundStyle(AppTheme.textSecondary)
+                    ViewThatFits(in: .horizontal) {
+                        HStack(alignment: .top, spacing: 18) {
+                            coverArtwork(for: course)
+                                .frame(width: 124, height: 124)
+                            detailStack(for: course)
                         }
 
-                        HStack(spacing: 12) {
-                            Label("继续播放", systemImage: "play.fill")
-                                .font(.subheadline.weight(.semibold))
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 10)
-                                .background(AppTheme.brandAccent, in: Capsule())
-                                .foregroundStyle(.white)
-
-                            if course.playbackPosition > 0 {
-                                Label(formatTime(course.playbackPosition), systemImage: "waveform")
-                                    .font(.caption.weight(.medium))
-                                    .foregroundStyle(AppTheme.textTertiary)
-                            }
+                        VStack(alignment: .leading, spacing: 18) {
+                            coverArtwork(for: course)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 216)
+                            detailStack(for: course)
                         }
                     }
+
+                    Rectangle()
+                        .fill(AppTheme.divider)
+                        .frame(height: 1)
+
+                    HStack(spacing: 12) {
+                        Label(course.playbackPosition > 0 ? "继续播放" : "开始播放", systemImage: course.playbackPosition > 0 ? "play.fill" : "headphones")
+                            .font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 11)
+                            .background(AppTheme.brandAccent, in: Capsule())
+                            .foregroundStyle(.white)
+
+                        Spacer()
+
+                        Image(systemName: "arrow.right")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(AppTheme.textTertiary)
+                    }
                 }
-                .padding(20)
+                .padding(22)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-                .shadow(color: Color.black.opacity(0.06), radius: 6, y: 3)
+                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous)
+                        .stroke(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
+                }
+                .shadow(color: AppTheme.shadow, radius: 16, y: 10)
             }
             .buttonStyle(.plain)
         } else {
@@ -59,6 +67,36 @@ struct ContinueListeningCard: View {
         }
     }
 
+    private func detailStack(for course: Course) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(course.title)
+                    .font(.title3.weight(.bold))
+                    .foregroundStyle(AppTheme.textPrimary)
+                    .lineLimit(3)
+
+                Text(playbackSummary(for: course))
+                    .font(.subheadline)
+                    .foregroundStyle(AppTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            HStack(spacing: 8) {
+                infoChip(
+                    title: course.playbackPosition > 0 ? formatTime(course.playbackPosition) : "未开始",
+                    systemImage: course.playbackPosition > 0 ? "waveform" : "sparkles"
+                )
+
+                if let lastPlayedAt = course.lastPlayedAt {
+                    relativeChip(date: lastPlayedAt)
+                } else {
+                    infoChip(title: "新导入", systemImage: "tray.full")
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
     @ViewBuilder
     private func coverArtwork(for course: Course) -> some View {
         if let coverURL = course.resolvedCoverImageURL,
@@ -66,12 +104,12 @@ struct ContinueListeningCard: View {
             Image(uiImage: coverImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: AppTheme.nestedCornerRadius, style: .continuous))
         } else {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            RoundedRectangle(cornerRadius: AppTheme.nestedCornerRadius, style: .continuous)
                 .fill(
                     LinearGradient(
-                        colors: [AppTheme.brandAccent.opacity(0.22), AppTheme.surfaceMuted, .white],
+                        colors: [AppTheme.brandAccentMuted, AppTheme.surfaceMuted],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -82,6 +120,27 @@ struct ContinueListeningCard: View {
                         .foregroundStyle(AppTheme.brandAccent)
                 }
         }
+    }
+
+    private func infoChip(title: String, systemImage: String) -> some View {
+        Label(title, systemImage: systemImage)
+            .font(.caption.weight(.medium))
+            .foregroundStyle(AppTheme.textSecondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(AppTheme.surfaceMuted, in: Capsule())
+    }
+
+    private func relativeChip(date: Date) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: "clock")
+            Text(date, style: .relative)
+        }
+        .font(.caption.weight(.medium))
+        .foregroundStyle(AppTheme.textSecondary)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .background(AppTheme.surfaceMuted, in: Capsule())
     }
 
     private func playbackSummary(for course: Course) -> String {

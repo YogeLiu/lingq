@@ -12,22 +12,24 @@ struct SectionHeader: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
             if let eyebrow {
                 Text(eyebrow)
-                    .font(.caption.weight(.semibold))
+                    .font(.caption2.weight(.semibold))
                     .foregroundStyle(AppTheme.textTertiary)
                     .textCase(.uppercase)
+                    .tracking(1.1)
             }
 
             Text(title)
-                .font(.title3.weight(.semibold))
+                .font(.title3.weight(.bold))
                 .foregroundStyle(AppTheme.textPrimary)
 
             if let subtitle {
                 Text(subtitle)
                     .font(.subheadline)
                     .foregroundStyle(AppTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

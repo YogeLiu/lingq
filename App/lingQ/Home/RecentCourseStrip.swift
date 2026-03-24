@@ -14,48 +14,51 @@ struct RecentCourseStrip: View {
             )
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+                LazyHStack(spacing: 16) {
                     ForEach(courses.prefix(8)) { course in
                         NavigationLink(value: course) {
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 14) {
                                 coverArtwork(for: course)
-                                    .frame(height: 110)
+                                    .frame(height: 136)
 
-                                VStack(alignment: .leading, spacing: 6) {
+                                VStack(alignment: .leading, spacing: 10) {
                                     Text(course.title)
-                                        .font(.headline)
+                                        .font(.headline.weight(.bold))
                                         .foregroundStyle(AppTheme.textPrimary)
                                         .lineLimit(2)
 
-                                    if course.playbackPosition > 0 {
-                                        Label("停在 \(formatTime(course.playbackPosition))", systemImage: "play.circle.fill")
-                                            .font(.caption)
-                                            .foregroundStyle(AppTheme.textSecondary)
-                                    } else {
-                                        Label("尚未开始", systemImage: "headphones")
-                                            .font(.caption)
-                                            .foregroundStyle(AppTheme.textSecondary)
-                                    }
+                                    Text(course.playbackPosition > 0 ? "从 \(formatTime(course.playbackPosition)) 继续这门课程" : "还没开始，适合现在打开做第一遍输入。")
+                                        .font(.subheadline)
+                                        .foregroundStyle(AppTheme.textSecondary)
+                                        .lineLimit(2)
 
-                                    if let lastPlayedAt = course.lastPlayedAt {
-                                        Text(lastPlayedAt, style: .relative)
-                                            .font(.caption2)
-                                            .foregroundStyle(AppTheme.textTertiary)
-                                    } else {
-                                        Text(course.createdAt, style: .date)
-                                            .font(.caption2)
-                                            .foregroundStyle(AppTheme.textTertiary)
+                                    HStack(spacing: 8) {
+                                        statusChip(
+                                            title: course.playbackPosition > 0 ? formatTime(course.playbackPosition) : "未开始",
+                                            systemImage: course.playbackPosition > 0 ? "play.circle.fill" : "sparkles"
+                                        )
+
+                                        if let lastPlayedAt = course.lastPlayedAt {
+                                            relativeChip(date: lastPlayedAt)
+                                        } else {
+                                            statusChip(title: "新加入", systemImage: "tray.full")
+                                        }
                                     }
                                 }
                             }
-                            .frame(width: 214, alignment: .leading)
+                            .frame(width: 244, alignment: .leading)
                             .padding(16)
-                            .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
+                            .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: AppTheme.nestedCornerRadius, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: AppTheme.nestedCornerRadius, style: .continuous)
+                                    .stroke(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
+                            }
+                            .shadow(color: AppTheme.shadow, radius: 12, y: 8)
                         }
                         .buttonStyle(.plain)
                     }
                 }
+                .padding(.vertical, 2)
             }
         }
     }
@@ -67,12 +70,12 @@ struct RecentCourseStrip: View {
             Image(uiImage: coverImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: AppTheme.compactCornerRadius, style: .continuous))
         } else {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: AppTheme.compactCornerRadius, style: .continuous)
                 .fill(
                     LinearGradient(
-                        colors: [AppTheme.brandAccent.opacity(0.18), AppTheme.surfaceMuted, .white],
+                        colors: [AppTheme.brandAccentMuted, AppTheme.surfaceMuted],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -83,6 +86,27 @@ struct RecentCourseStrip: View {
                         .foregroundStyle(AppTheme.brandAccent)
                 }
         }
+    }
+
+    private func statusChip(title: String, systemImage: String) -> some View {
+        Label(title, systemImage: systemImage)
+            .font(.caption.weight(.medium))
+            .foregroundStyle(AppTheme.textSecondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .background(AppTheme.surfaceMuted, in: Capsule())
+    }
+
+    private func relativeChip(date: Date) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: "clock")
+            Text(date, style: .relative)
+        }
+        .font(.caption.weight(.medium))
+        .foregroundStyle(AppTheme.textSecondary)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(AppTheme.surfaceMuted, in: Capsule())
     }
 
     private func formatTime(_ time: TimeInterval) -> String {

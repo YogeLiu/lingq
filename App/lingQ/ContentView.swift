@@ -14,7 +14,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Playlist", systemImage: "play.square.stack", value: .playlist) {
+            Tab("首页", systemImage: "house.fill", value: .playlist) {
                 NavigationStack {
                     HomeView {
                         selectedTab = .me
@@ -26,24 +26,26 @@ struct ContentView: View {
                 }
             }
 
-            Tab("Vocabulary", systemImage: "character.book.closed.fill", value: .vocabulary) {
+            Tab("词汇", systemImage: "character.book.closed.fill", value: .vocabulary) {
                 NavigationStack {
                     VocabularyListView()
                 }
             }
 
-            Tab("Review", systemImage: "rectangle.stack.badge.play", value: .review) {
+            Tab("复习", systemImage: "rectangle.stack.badge.play", value: .review) {
                 NavigationStack {
                     FlashcardReviewView()
                 }
             }
 
-            Tab("Me", systemImage: "person.crop.circle", value: .me) {
+            Tab("我的", systemImage: "person.crop.circle", value: .me) {
                 NavigationStack {
                     MeView(importRequestID: importRequestID)
                 }
             }
         }
         .tint(AppTheme.brandAccent)
+        .toolbarBackground(AppTheme.chromeBackground, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
     }
 }

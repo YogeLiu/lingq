@@ -25,27 +25,53 @@ struct CourseListView: View {
                         SectionHeader(
                             "课程库",
                             eyebrow: "Library",
-                            subtitle: "课程以 ZIP 包导入，封面、音频和字幕都会保存在本地。"
+                            subtitle: courses.count == 1
+                                ? "目前有 1 门本地课程，封面、音频和字幕都会保存在设备里。"
+                                : "目前有 \(courses.count) 门本地课程，封面、音频和字幕都会保存在设备里。"
                         )
 
                         Button {
                             showZipImport = true
                         } label: {
                             HeroCard {
-                                Text("导入新课程")
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(AppTheme.textPrimary)
+                                HStack(alignment: .top, spacing: 16) {
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        Text("导入新课程")
+                                            .font(.headline.weight(.bold))
+                                            .foregroundStyle(AppTheme.textPrimary)
 
-                                Text("选择一个 ZIP，系统会自动提取封面、音频和字幕。")
-                                    .font(.subheadline)
-                                    .foregroundStyle(AppTheme.textSecondary)
+                                        Text("选择一个 ZIP，系统会自动提取封面、音频和字幕，并整理进本地课程库。")
+                                            .font(.subheadline)
+                                            .foregroundStyle(AppTheme.textSecondary)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
 
-                                Label("开始导入", systemImage: "square.and.arrow.down")
-                                    .font(.subheadline.weight(.semibold))
-                                    .padding(.horizontal, 14)
-                                    .padding(.vertical, 10)
-                                    .background(AppTheme.brandAccent, in: Capsule())
-                                    .foregroundStyle(Color.white)
+                                    Spacer()
+
+                                    Image(systemName: "square.and.arrow.down.on.square.fill")
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .foregroundStyle(AppTheme.brandAccent)
+                                        .frame(width: 48, height: 48)
+                                        .background(AppTheme.brandAccentMuted, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                }
+
+                                HStack(spacing: 8) {
+                                    featureTag("ZIP")
+                                    featureTag("自动解压")
+                                    featureTag("离线收听")
+                                }
+
+                                HStack {
+                                    Text("开始导入")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(AppTheme.brandAccent)
+
+                                    Spacer()
+
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption.weight(.bold))
+                                        .foregroundStyle(AppTheme.textTertiary)
+                                }
                             }
                         }
                         .buttonStyle(.plain)
@@ -87,6 +113,15 @@ struct CourseListView: View {
         .sheet(isPresented: $showZipImport) {
             ZipImportView()
         }
+    }
+
+    private func featureTag(_ title: String) -> some View {
+        Text(title)
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(AppTheme.textSecondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .background(AppTheme.surfaceMuted, in: Capsule())
     }
 
     private func deleteCourse(_ course: Course) {

@@ -13,7 +13,11 @@ struct PlayerSurface<Content: View>: View {
             content
         }
         .padding(18)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous)
+                .stroke(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
+        }
     }
 }
 
@@ -95,10 +99,16 @@ struct PlaybackControlCard: View {
                         } label: {
                             Text(speedValueLabel(for: rate))
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundStyle(player.playbackRate == rate ? .white : playerAccentColor)
+                                .foregroundStyle(player.playbackRate == rate ? .white : AppTheme.textPrimary)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 10)
-                                .background(player.playbackRate == rate ? playerAccentColor : Color.white, in: Capsule())
+                                .background(player.playbackRate == rate ? playerAccentColor : AppTheme.surface, in: Capsule())
+                                .overlay {
+                                    if player.playbackRate != rate {
+                                        Capsule()
+                                            .stroke(AppTheme.borderSubtle.opacity(0.68), lineWidth: 1)
+                                    }
+                                }
                         }
                         .buttonStyle(.plain)
                     }
@@ -114,13 +124,13 @@ struct PlaybackControlCard: View {
         .padding(.bottom, 18)
         .background(
             RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .fill(Color.white)
+                .fill(AppTheme.surface)
         )
         .overlay {
             RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .strokeBorder(Color.white.opacity(0.9), lineWidth: 1.2)
+                .strokeBorder(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
         }
-        .shadow(color: Color.black.opacity(0.07), radius: 18, y: 10)
+        .shadow(color: AppTheme.shadow, radius: 18, y: 10)
     }
 
     private var progressTotal: TimeInterval {
@@ -140,15 +150,15 @@ struct PlaybackControlCard: View {
     }
 
     private var playerAccentColor: Color {
-        Color(hex: "151D33")
+        AppTheme.brandAccent
     }
 
     private var playerTrackTint: Color {
-        Color(hex: "E9EEF7")
+        AppTheme.surfaceMuted
     }
 
     private var playerControlTint: Color {
-        Color(hex: "95A4BD")
+        AppTheme.textSecondary
     }
 
     private func formatTime(_ time: TimeInterval) -> String {

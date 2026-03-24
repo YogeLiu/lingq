@@ -6,44 +6,47 @@ struct CourseCardView: View {
     let course: Course
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(alignment: .top, spacing: 16) {
             coverArtwork
-                .frame(width: 84, height: 84)
+                .frame(width: 92, height: 92)
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 14) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(course.title)
-                        .font(.headline.weight(.semibold))
+                        .font(.headline.weight(.bold))
                         .foregroundStyle(AppTheme.textPrimary)
                         .lineLimit(2)
 
                     Text(course.lastPlayedAt == nil ? "准备开始第一遍输入" : "继续你的听力会话")
                         .font(.subheadline)
                         .foregroundStyle(AppTheme.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
-                HStack {
-                    Label(playbackStatus, systemImage: playbackIcon)
-                        .font(.caption.weight(.medium))
-                        .foregroundStyle(AppTheme.textSecondary)
-
-                    Spacer()
+                HStack(spacing: 8) {
+                    statusChip(title: playbackStatus, systemImage: playbackIcon)
 
                     if let lastPlayed = course.lastPlayedAt {
-                        Text(lastPlayed, style: .relative)
-                            .font(.caption)
-                            .foregroundStyle(AppTheme.textTertiary)
+                        relativeChip(date: lastPlayed)
                     } else {
-                        Text(course.createdAt, style: .date)
-                            .font(.caption)
-                            .foregroundStyle(AppTheme.textTertiary)
+                        statusChip(title: "新加入", systemImage: "tray.full")
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(AppTheme.textTertiary)
+                .padding(.top, 4)
         }
-        .padding(16)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
+        .padding(18)
+        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous)
+                .stroke(AppTheme.borderSubtle.opacity(0.68), lineWidth: 1)
+        }
+        .shadow(color: AppTheme.shadow, radius: 12, y: 8)
     }
 
     @ViewBuilder
@@ -53,12 +56,12 @@ struct CourseCardView: View {
             Image(uiImage: coverImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: AppTheme.compactCornerRadius, style: .continuous))
         } else {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: AppTheme.compactCornerRadius, style: .continuous)
                 .fill(
                     LinearGradient(
-                        colors: [AppTheme.brandAccent.opacity(0.22), AppTheme.surfaceMuted, .white],
+                        colors: [AppTheme.brandAccentMuted, AppTheme.surfaceMuted],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -69,6 +72,27 @@ struct CourseCardView: View {
                         .foregroundStyle(AppTheme.brandAccent)
                 }
         }
+    }
+
+    private func statusChip(title: String, systemImage: String) -> some View {
+        Label(title, systemImage: systemImage)
+            .font(.caption.weight(.medium))
+            .foregroundStyle(AppTheme.textSecondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .background(AppTheme.surfaceMuted, in: Capsule())
+    }
+
+    private func relativeChip(date: Date) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: "clock")
+            Text(date, style: .relative)
+        }
+        .font(.caption.weight(.medium))
+        .foregroundStyle(AppTheme.textSecondary)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(AppTheme.surfaceMuted, in: Capsule())
     }
 
     private func formatTime(_ time: TimeInterval) -> String {

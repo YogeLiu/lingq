@@ -16,14 +16,16 @@ struct EmptyStateCard: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 18) {
             Image(systemName: icon)
-                .font(.system(size: 28, weight: .medium))
+                .font(.system(size: 24, weight: .semibold))
                 .foregroundStyle(AppTheme.brandAccent)
+                .frame(width: 56, height: 56)
+                .background(AppTheme.brandAccentMuted, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
 
-            VStack(spacing: 6) {
+            VStack(spacing: 8) {
                 Text(title)
-                    .font(.headline)
+                    .font(.title3.weight(.bold))
                     .foregroundStyle(AppTheme.textPrimary)
 
                 Text(message)
@@ -38,9 +40,13 @@ struct EmptyStateCard: View {
                     .tint(AppTheme.brandAccent)
             }
         }
-        .padding(24)
+        .padding(26)
         .frame(maxWidth: .infinity)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
+        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous)
+                .stroke(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
+        }
+        .shadow(color: AppTheme.shadow, radius: 12, y: 8)
     }
 }

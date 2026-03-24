@@ -99,12 +99,12 @@ struct PlaybackDetailView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 260)
-                    .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous))
             } else {
-                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius, style: .continuous)
                     .fill(
                         LinearGradient(
-                            colors: [AppTheme.brandAccent.opacity(0.26), AppTheme.surfaceMuted, .white],
+                            colors: [AppTheme.brandAccentMuted, AppTheme.surfaceMuted],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -121,6 +121,11 @@ struct PlaybackDetailView: View {
 
     private var titleSection: some View {
         VStack(spacing: 8) {
+            Text("本地课程")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(AppTheme.brandAccent)
+                .tracking(1)
+
             Text(course.title)
                 .font(.title2.weight(.bold))
                 .foregroundStyle(AppTheme.textPrimary)

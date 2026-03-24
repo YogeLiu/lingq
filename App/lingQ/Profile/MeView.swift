@@ -110,7 +110,10 @@ struct MeView: View {
                 Text("管理")
             }
         }
-        .navigationTitle("Me")
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(AppTheme.background.ignoresSafeArea())
+        .navigationTitle("我的")
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: importRequestID) { _, newValue in
             if newValue > 0 {
