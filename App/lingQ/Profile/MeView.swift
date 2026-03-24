@@ -16,103 +16,40 @@ struct MeView: View {
         self.importRequestID = importRequestID
     }
 
-    private var dueCount: Int {
-        words.filter(\.isDueForReview).count
-    }
-
     var body: some View {
         List {
-            Section {
-                Button {
-                    showZipImport = true
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("从文件导入 ZIP")
-                                .font(.headline)
-                            Text("封面、音频、字幕会自动解压并入库")
-                                .font(.caption)
-                                .foregroundStyle(AppTheme.textSecondary)
-                        }
-                    } icon: {
-                        Image(systemName: "doc.zipper")
-                            .foregroundStyle(AppTheme.brandAccent)
-                    }
-                }
-            } header: {
-                Text("导入")
-            }
-
-            Section {
-                NavigationLink {
-                    CollectionsView()
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("我的合集")
-                                .font(.headline)
-                            Text("\(courses.count) 门课程")
-                                .font(.caption)
-                                .foregroundStyle(AppTheme.textSecondary)
-                        }
-                    } icon: {
-                        Image(systemName: "folder.fill")
-                            .foregroundStyle(AppTheme.brandAccent)
-                    }
-                }
-            }
-
-            Section {
-                NavigationLink {
-                    FlashcardReviewView()
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("复习")
-                                .font(.headline)
-                            Text(dueCount > 0 ? "\(dueCount) 个待复习词" : "暂无到期词")
-                                .font(.caption)
-                                .foregroundStyle(AppTheme.textSecondary)
-                        }
-                    } icon: {
-                        Image(systemName: "rectangle.stack.badge.play")
-                            .foregroundStyle(AppTheme.warning)
-                    }
-                }
-
-                NavigationLink {
-                    VocabularyListView()
-                } label: {
-                    Label {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("全部词汇")
-                                .font(.headline)
-                            Text("\(words.count) 个词")
-                                .font(.caption)
-                                .foregroundStyle(AppTheme.textSecondary)
-                        }
-                    } icon: {
-                        Image(systemName: "character.book.closed.fill")
-                            .foregroundStyle(AppTheme.brandAccent)
-                    }
-                }
-            } header: {
-                Text("学习")
-            }
-
-            Section {
+            Section("课程库") {
                 NavigationLink {
                     CourseListView()
                 } label: {
-                    Label("课程库", systemImage: "books.vertical")
+                    Label {
+                        Text("全部课程")
+                    } icon: {
+                        Image(systemName: "headphones")
+                    }
+                    .badge(courses.count)
                 }
-            } header: {
-                Text("管理")
+
+                NavigationLink {
+                    CollectionsView()
+                } label: {
+                    Label("收藏夹", systemImage: "folder")
+                }
+            }
+
+            Section("导入") {
+                Button {
+                    showZipImport = true
+                } label: {
+                    Label("导入课程", systemImage: "square.and.arrow.down")
+                }
+            }
+
+            Section("关于") {
+                LabeledContent("版本", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
             }
         }
         .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
-        .background(AppTheme.background.ignoresSafeArea())
         .navigationTitle("我的")
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: importRequestID) { _, newValue in

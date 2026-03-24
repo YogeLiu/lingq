@@ -13,7 +13,7 @@ struct TappableSubtitleLineView: View {
         FlowLayout(spacing: 0, lineSpacing: 2) {
             ForEach(Array(words.enumerated()), id: \.offset) { index, word in
                 Text(word.display)
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(wordColor(at: index))
                     .underline(isSaved(word), color: .white.opacity(0.25))
                     .contentShape(Rectangle())

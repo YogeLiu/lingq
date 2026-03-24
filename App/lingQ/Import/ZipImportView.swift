@@ -14,69 +14,41 @@ struct ZipImportView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 28) {
+            VStack(spacing: 24) {
                 Spacer()
 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 30, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [AppTheme.brandAccent.opacity(0.18), AppTheme.brandAccentMuted, .white],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 184, height: 184)
+                Image(systemName: "doc.zipper")
+                    .font(.system(size: 56))
+                    .foregroundStyle(Color(.tertiaryLabel))
 
-                    Image(systemName: "doc.zipper")
-                        .font(.system(size: 68, weight: .semibold))
-                        .foregroundStyle(AppTheme.brandAccent)
-                }
+                VStack(spacing: 8) {
+                    Text("导入课程")
+                        .font(.headline)
 
-                VStack(spacing: 10) {
-                    Text("导入 ZIP 课程")
-                        .font(.title2.weight(.bold))
-                        .foregroundStyle(AppTheme.textPrimary)
-
-                    Text("选择一个 ZIP 文件，里面放入封面图片、音频和字幕。导入后会自动解压到 App 本地。")
-                        .font(.subheadline)
-                        .foregroundStyle(AppTheme.textSecondary)
+                    Text("选择一个 ZIP 文件，包含音频和字幕。封面图片可选。")
+                        .font(.caption)
+                        .foregroundStyle(Color(.secondaryLabel))
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 28)
+                        .padding(.horizontal, 32)
                 }
-
-                VStack(alignment: .leading, spacing: 10) {
-                    importRequirementRow(icon: "photo", text: "封面：jpg / png / webp，可选")
-                    importRequirementRow(icon: "waveform", text: "音频：mp3 / m4a / wav / aac")
-                    importRequirementRow(icon: "captions.bubble", text: "字幕：srt")
-                }
-                .padding(18)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
 
                 Button {
                     showFileImporter = true
                 } label: {
-                    Label(isImporting ? "正在导入..." : "从文件中选择 ZIP", systemImage: "square.and.arrow.down")
-                        .font(.headline.weight(.semibold))
+                    Label(isImporting ? "正在导入..." : "选择文件", systemImage: "square.and.arrow.down")
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(AppTheme.brandAccent)
                 .disabled(isImporting)
+                .padding(.horizontal, 24)
 
                 Spacer()
             }
-            .padding(24)
-            .background(AppTheme.background.ignoresSafeArea())
             .navigationTitle("导入")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("取消") {
-                        dismiss()
-                    }
+                    Button("取消") { dismiss() }
                 }
             }
             .fileImporter(
@@ -97,24 +69,10 @@ struct ZipImportView: View {
                 get: { importSuccessTitle != nil },
                 set: { if !$0 { importSuccessTitle = nil } }
             )) {
-                Button("继续") {
-                    dismiss()
-                }
+                Button("继续") { dismiss() }
             } message: {
                 Text(importSuccessTitle.map { "\($0) 已加入课程库。" } ?? "")
             }
-        }
-    }
-
-    private func importRequirementRow(icon: String, text: String) -> some View {
-        HStack(spacing: 10) {
-            Image(systemName: icon)
-                .foregroundStyle(AppTheme.brandAccent)
-                .frame(width: 18)
-
-            Text(text)
-                .font(.subheadline)
-                .foregroundStyle(AppTheme.textSecondary)
         }
     }
 
@@ -130,9 +88,7 @@ struct ZipImportView: View {
             isImporting = true
             let hasAccess = url.startAccessingSecurityScopedResource()
             defer {
-                if hasAccess {
-                    url.stopAccessingSecurityScopedResource()
-                }
+                if hasAccess { url.stopAccessingSecurityScopedResource() }
             }
 
             do {

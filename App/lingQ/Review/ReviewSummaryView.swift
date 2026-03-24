@@ -10,38 +10,33 @@ struct ReviewSummaryView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 64))
+            Image(systemName: "checkmark.circle")
+                .font(.system(size: 48))
                 .foregroundStyle(.green)
 
-            Text("复习完成")
-                .font(.title.bold())
+            Text("今日复习完成")
+                .font(.title2.bold())
 
-            Text("共复习 \(totalReviewed) 个单词")
-                .foregroundStyle(.secondary)
+            Text("共复习 \(totalReviewed) 个词汇")
+                .font(.caption)
+                .foregroundStyle(Color(.secondaryLabel))
 
             VStack(spacing: 8) {
-                SummaryRow(title: "重来", count: againCount, color: .red)
-                SummaryRow(title: "困难", count: hardCount, color: .orange)
-                SummaryRow(title: "良好", count: goodCount, color: .green)
-                SummaryRow(title: "简单", count: easyCount, color: .blue)
+                summaryRow(title: "忘了", count: againCount, color: .red)
+                summaryRow(title: "模糊", count: hardCount, color: .orange)
+                summaryRow(title: "记得", count: goodCount, color: .green)
+                summaryRow(title: "简单", count: easyCount, color: .blue)
             }
             .padding()
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
 
-            Button("完成", action: onDone)
-                .buttonStyle(.borderedProminent)
+            Button("返回首页", action: onDone)
+                .buttonStyle(.bordered)
         }
         .padding()
     }
-}
 
-struct SummaryRow: View {
-    let title: String
-    let count: Int
-    let color: Color
-
-    var body: some View {
+    private func summaryRow(title: String, count: Int, color: Color) -> some View {
         HStack {
             Circle().fill(color).frame(width: 8, height: 8)
             Text(title)

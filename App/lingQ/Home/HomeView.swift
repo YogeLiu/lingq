@@ -19,66 +19,22 @@ struct HomeView: View {
         words.filter(\.isDueForReview).count
     }
 
-    private var recentNewWordCount: Int {
-        let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? .distantPast
-        return words.filter { $0.createdAt >= sevenDaysAgo }.count
-    }
-
-    private var totalListeningMinutes: Int {
-        recentCourses.reduce(0) { partial, course in
-            partial + Int(course.playbackPosition / 60)
-        }
-    }
-
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 24) {
-                ContinueListeningCard(course: continueCourse)
+        ScrollView {
+            VStack(spacing: 16) {
+                // Hero card
+                ContinueListeningCard(course: continueCourse, onImportTap: onImportTap)
+                    .padding(.horizontal, 16)
 
                 if !recentCourses.isEmpty {
-                    VStack(alignment: .leading, spacing: 16) {
-                        SectionHeader(
-                            "最近课程",
-                            eyebrow: "Library",
-                            subtitle: "从封面直接回到最近加入和最近播放的内容。"
-                        )
-                        RecentCourseStrip(courses: recentCourses)
-                    }
+                    recentCoursesSection
                 }
 
-                VStack(alignment: .leading, spacing: 16) {
-                    SectionHeader(
-                        "学习节奏",
-                        eyebrow: "Progress",
-                        subtitle: dueReviewCount == 0
-                            ? "今天没有到期词，可以直接回到输入和收听。"
-                            : "先清理待复习词，再继续保持听力输入。"
-                    )
-                    LearningSummaryCard(
-                        dueReviewCount: dueReviewCount,
-                        recentWordCount: recentNewWordCount,
-                        listeningMinutes: totalListeningMinutes
-                    )
-                }
-
-                if recentCourses.isEmpty {
-                    ImportPromptCard(onImportTap: onImportTap)
-                } else {
-                    VStack(alignment: .leading, spacing: 16) {
-                        SectionHeader(
-                            "导入新内容",
-                            eyebrow: "Library",
-                            subtitle: "继续补充新的课程包，首页和课程库会自动更新。"
-                        )
-                        ImportPromptCard(onImportTap: onImportTap)
-                    }
-                }
+                quickActionsSection
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
-            .padding(.bottom, 32)
+            .padding(.vertical, 16)
         }
-        .background(AppTheme.background.ignoresSafeArea())
+        .background(Color(.systemGroupedBackground))
         .navigationTitle("首页")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
@@ -87,6 +43,86 @@ struct HomeView: View {
                     onImportTap()
                 }
             }
+        }
+    }
+
+    private var recentCoursesSection: some View {
+        List {
+            Section("最近课程") {
+                ForEach(recentCourses.prefix(5)) { course in
+                    NavigationLink(value: course) {
+                        HStack(spacing: 12) {
+                            coverThumbnail(for: course)
+                                .frame(width: 60, height: 60)
+                                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(course.title)
+                                    .font(.headline)
+                                    .lineLimit(1)
+
+                                if let lastPlayed = course.lastPlayedAt {
+                                    Text("上次播放 \(lastPlayed, format: .dateTime.month().day().hour().minute())")
+                                        .font(.caption)
+                                        .foregroundStyle(Color(.secondaryLabel))
+                                } else {
+                                    Text("尚未播放")
+                                        .font(.caption)
+                                        .foregroundStyle(Color(.secondaryLabel))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .scrollDisabled(true)
+        .frame(height: CGFloat(min(recentCourses.count, 5)) * 76 + 56)
+    }
+
+    private var quickActionsSection: some View {
+        List {
+            Section {
+                HStack {
+                    Label("词汇复习", systemImage: "rectangle.stack.badge.play")
+                    Spacer()
+                    if dueReviewCount > 0 {
+                        Text("\(dueReviewCount)")
+                            .font(.caption.bold())
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .background(Color.red, in: Capsule())
+                    }
+                }
+
+                Button {
+                    onImportTap()
+                } label: {
+                    Label("导入课程", systemImage: "square.and.arrow.down")
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .scrollDisabled(true)
+        .frame(height: 132)
+    }
+
+    @ViewBuilder
+    private func coverThumbnail(for course: Course) -> some View {
+        if let coverURL = course.resolvedCoverImageURL,
+           let coverImage = UIImage(contentsOfFile: coverURL.path) {
+            Image(uiImage: coverImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } else {
+            Rectangle()
+                .fill(Color(.systemFill))
+                .overlay {
+                    Image(systemName: "headphones")
+                        .foregroundStyle(Color(.tertiaryLabel))
+                }
         }
     }
 }

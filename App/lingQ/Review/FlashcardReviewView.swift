@@ -25,15 +25,15 @@ struct FlashcardReviewView: View {
                 )
             } else if reviewWords.isEmpty {
                 ContentUnavailableView {
-                    Label("暂无待复习单词", systemImage: "sparkles")
+                    Label("没有需要复习的词汇", systemImage: "rectangle.on.rectangle")
                 } description: {
-                    Text("在字幕里点词保存后，会按照间隔重复计划出现在这里。")
+                    Text("保存的词汇会按照记忆曲线安排复习")
                 }
             } else if currentIndex < reviewWords.count {
-                VStack {
+                VStack(spacing: 16) {
                     Text("\(currentIndex + 1) / \(dueCount)")
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                        .foregroundStyle(Color(.secondaryLabel))
 
                     FlashcardView(word: reviewWords[currentIndex]) { grade in
                         gradeWord(grade)
@@ -41,6 +41,7 @@ struct FlashcardReviewView: View {
                 }
             }
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle("复习")
         .task { loadWords() }
     }

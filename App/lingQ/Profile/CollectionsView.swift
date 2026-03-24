@@ -9,41 +9,33 @@ struct CollectionsView: View {
     var body: some View {
         Group {
             if courses.isEmpty {
-                EmptyStateCard(
-                    icon: "folder.badge.plus",
-                    title: "还没有合集",
-                    message: "导入课程后，可以在这里整理和管理内容。"
-                )
-                .padding(20)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                ContentUnavailableView {
+                    Label("还没有课程", systemImage: "folder.badge.plus")
+                } description: {
+                    Text("导入课程后，可以在这里整理和管理内容")
+                }
             } else {
                 List {
                     ForEach(courses) { course in
                         NavigationLink(value: course) {
-                            HStack(spacing: 14) {
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(AppTheme.surfaceMuted)
+                            HStack(spacing: 12) {
+                                courseThumbnail(for: course)
                                     .frame(width: 48, height: 48)
-                                    .overlay {
-                                        Image(systemName: "headphones")
-                                            .font(.title3)
-                                            .foregroundStyle(AppTheme.textTertiary)
-                                    }
+                                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 
-                                VStack(alignment: .leading, spacing: 4) {
+                                VStack(alignment: .leading, spacing: 2) {
                                     Text(course.title)
                                         .font(.headline)
-                                        .foregroundStyle(AppTheme.textPrimary)
                                         .lineLimit(1)
 
                                     if let lastPlayed = course.lastPlayedAt {
                                         Text(lastPlayed, style: .relative)
                                             .font(.caption)
-                                            .foregroundStyle(AppTheme.textTertiary)
+                                            .foregroundStyle(Color(.secondaryLabel))
                                     } else {
                                         Text("尚未播放")
                                             .font(.caption)
-                                            .foregroundStyle(AppTheme.textTertiary)
+                                            .foregroundStyle(Color(.secondaryLabel))
                                     }
                                 }
                             }
@@ -51,13 +43,30 @@ struct CollectionsView: View {
                     }
                     .onDelete(perform: deleteCourses)
                 }
+                .listStyle(.insetGrouped)
             }
         }
-        .background(AppTheme.background.ignoresSafeArea())
-        .navigationTitle("我的合集")
+        .navigationTitle("收藏夹")
         .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: Course.self) { course in
             PlaybackDetailView(course: course)
+        }
+    }
+
+    @ViewBuilder
+    private func courseThumbnail(for course: Course) -> some View {
+        if let coverURL = course.resolvedCoverImageURL,
+           let coverImage = UIImage(contentsOfFile: coverURL.path) {
+            Image(uiImage: coverImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } else {
+            Rectangle()
+                .fill(Color(.systemFill))
+                .overlay {
+                    Image(systemName: "headphones")
+                        .foregroundStyle(Color(.tertiaryLabel))
+                }
         }
     }
 
