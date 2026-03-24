@@ -68,7 +68,7 @@ public final class AudioPlayer {
 
     private func startTimer() {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 guard let self, let avPlayer = self.avPlayer else { return }
                 let currentPlayerTime = avPlayer.currentTime

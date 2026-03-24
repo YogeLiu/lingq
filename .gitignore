@@ -9,3 +9,9 @@
 DerivedData/
 xcuserdata/
 *.xcworkspace/xcuserdata/
+
+# Build cache
+build/
+
+# macOS
+.DS_Store

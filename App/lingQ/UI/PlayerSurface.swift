@@ -34,8 +34,9 @@ struct PlaybackControlCard: View {
     let onToggleLoop: () -> Void
 
     var body: some View {
-        VStack(spacing: 22) {
-            VStack(spacing: 14) {
+        VStack(spacing: 14) {
+            // Progress
+            VStack(spacing: 6) {
                 GeometryReader { proxy in
                     ZStack(alignment: .leading) {
                         Capsule()
@@ -43,9 +44,10 @@ struct PlaybackControlCard: View {
 
                         Capsule()
                             .fill(playerAccentColor)
-                            .frame(width: max(proxy.size.width * progressFraction, 18))
+                            .frame(width: max(proxy.size.width * progressFraction, 4))
                     }
-                    .frame(height: 14)
+                    .frame(height: 3)
+                    .frame(maxHeight: .infinity, alignment: .center)
                     .contentShape(Rectangle())
                     .gesture(
                         DragGesture(minimumDistance: 0)
@@ -54,83 +56,80 @@ struct PlaybackControlCard: View {
                             }
                     )
                 }
-                .frame(height: 14)
+                .frame(height: 28)
 
                 HStack {
                     Text(formatTime(progressValue))
                     Spacer()
                     Text(formatTime(progressTotal))
                 }
-                .font(.system(size: 18, weight: .semibold, design: .rounded).monospacedDigit())
+                .font(.system(size: 11, weight: .medium, design: .monospaced).monospacedDigit())
                 .foregroundStyle(playerControlTint)
             }
 
-            HStack(spacing: 18) {
+            // Transport controls
+            HStack(spacing: 0) {
                 secondaryControlButton(systemImage: "gobackward.10", action: onSkipBackward)
+                Spacer()
                 secondaryControlButton(systemImage: "backward.end.fill", action: onPrevious)
+                Spacer()
 
                 Button { player.toggle() } label: {
                     Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.system(size: 22, weight: .semibold))
                         .foregroundStyle(.white)
-                        .frame(width: 98, height: 98)
+                        .frame(width: 52, height: 52)
                         .background(playerAccentColor, in: Circle())
-                        .shadow(color: playerAccentColor.opacity(0.16), radius: 16, y: 10)
                 }
                 .buttonStyle(.plain)
 
+                Spacer()
                 secondaryControlButton(systemImage: "forward.end.fill", action: onNext)
+                Spacer()
                 secondaryControlButton(systemImage: "goforward.10", action: onSkipForward)
             }
-            .frame(maxWidth: .infinity)
 
-            HStack(spacing: 10) {
+            // Utility row
+            HStack(spacing: 8) {
                 if let onSubtitleTap {
                     utilityButton(systemImage: "captions.bubble.fill", isActive: false, action: onSubtitleTap)
                 } else {
-                    Color.clear
-                        .frame(width: 42, height: 42)
+                    Color.clear.frame(width: 34, height: 34)
                 }
 
-                HStack(spacing: 8) {
+                Spacer()
+
+                HStack(spacing: 4) {
                     ForEach(availableSpeeds, id: \.self) { rate in
                         Button {
                             player.playbackRate = rate
                         } label: {
                             Text(speedValueLabel(for: rate))
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundStyle(player.playbackRate == rate ? .white : AppTheme.textPrimary)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .background(player.playbackRate == rate ? playerAccentColor : AppTheme.surface, in: Capsule())
-                                .overlay {
-                                    if player.playbackRate != rate {
-                                        Capsule()
-                                            .stroke(AppTheme.borderSubtle.opacity(0.68), lineWidth: 1)
-                                    }
-                                }
+                                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                .foregroundStyle(player.playbackRate == rate ? .white : AppTheme.textSecondary)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(player.playbackRate == rate ? playerAccentColor : Color.clear, in: Capsule())
                         }
                         .buttonStyle(.plain)
                     }
                 }
-                .padding(5)
+                .padding(3)
                 .background(playerTrackTint, in: Capsule())
+
+                Spacer()
 
                 utilityButton(systemImage: "repeat", isActive: isLoopActive, action: onToggleLoop)
             }
         }
-        .padding(.horizontal, 18)
-        .padding(.top, 20)
-        .padding(.bottom, 18)
-        .background(
-            RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .fill(AppTheme.surface)
-        )
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 14)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .strokeBorder(AppTheme.borderSubtle.opacity(0.72), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .strokeBorder(AppTheme.borderSubtle.opacity(0.4), lineWidth: 0.5)
         }
-        .shadow(color: AppTheme.shadow, radius: 18, y: 10)
     }
 
     private var progressTotal: TimeInterval {
@@ -158,7 +157,7 @@ struct PlaybackControlCard: View {
     }
 
     private var playerControlTint: Color {
-        AppTheme.textSecondary
+        AppTheme.textTertiary
     }
 
     private func formatTime(_ time: TimeInterval) -> String {
@@ -171,9 +170,9 @@ struct PlaybackControlCard: View {
     private func secondaryControlButton(systemImage: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: systemImage)
-                .font(.system(size: 30, weight: .medium))
-                .foregroundStyle(playerControlTint)
-                .frame(width: 44, height: 44)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundStyle(AppTheme.textPrimary)
+                .frame(width: 40, height: 40)
         }
         .buttonStyle(.plain)
     }
@@ -181,19 +180,19 @@ struct PlaybackControlCard: View {
     private func utilityButton(systemImage: String, isActive: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: systemImage)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(isActive ? .white : playerAccentColor)
-                .frame(width: 42, height: 42)
-                .background(isActive ? playerAccentColor : playerTrackTint, in: Capsule())
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(isActive ? .white : AppTheme.textSecondary)
+                .frame(width: 34, height: 34)
+                .background(isActive ? playerAccentColor : playerTrackTint, in: Circle())
         }
         .buttonStyle(.plain)
     }
 
     private func speedValueLabel(for rate: Float) -> String {
         if rate == Float(Int(rate)) {
-            return "\(Int(rate))"
+            return "\(Int(rate))x"
         }
-        return String(format: "%.2g", Double(rate))
+        return String(format: "%.2gx", Double(rate))
     }
 
     private func seek(to xOffset: CGFloat, in width: CGFloat) {

@@ -28,12 +28,13 @@ struct ImmersiveListeningView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .bottom) {
-                AppTheme.background
+                Color(red: 0.055, green: 0.06, blue: 0.1)
                     .ignoresSafeArea()
 
                 LyricsCanvasView(
                     cues: cues,
                     currentIndex: currentIndex,
+                    currentTime: player.currentTime,
                     onCueTap: { cue in
                         player.seek(to: cue.startTime)
                         showControlsTemporarily()
@@ -43,7 +44,7 @@ struct ImmersiveListeningView: View {
                         saveWordToDictionary(word: word, contextSentence: contextSentence)
                     }
                 )
-                .padding(.bottom, controlsVisible ? 208 : 60)
+                .padding(.bottom, controlsVisible ? 160 : 60)
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         controlsVisible.toggle()
@@ -87,7 +88,7 @@ struct ImmersiveListeningView: View {
                 }
                 .frame(
                     width: proxy.size.width / 2,
-                    height: max(proxy.size.height - (controlsVisible ? 220 : 0), 0)
+                    height: max(proxy.size.height - (controlsVisible ? 170 : 0), 0)
                 )
                 .ignoresSafeArea(edges: .top)
             }
@@ -95,9 +96,10 @@ struct ImmersiveListeningView: View {
                 if controlsVisible {
                     Button { dismiss() } label: {
                         Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(.white.opacity(0.7))
                             .padding(12)
-                            .background(.thinMaterial, in: Circle())
-                            .foregroundStyle(AppTheme.textPrimary)
+                            .background(.white.opacity(0.12), in: Circle())
                     }
                     .padding(.leading, 20)
                     .padding(.top, 12)
@@ -111,7 +113,7 @@ struct ImmersiveListeningView: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 8)
-                        .background(AppTheme.textPrimary.opacity(0.88), in: Capsule())
+                        .background(.white.opacity(0.15), in: Capsule())
                         .padding(.top, controlsVisible ? 64 : 18)
                         .transition(.opacity.combined(with: .move(edge: .top)))
                 }
@@ -119,7 +121,9 @@ struct ImmersiveListeningView: View {
             .onChange(of: player.currentTime) { _, time in
                 let nextIndex = searcher.index(at: time)
                 guard nextIndex != currentIndex else { return }
-                currentIndex = nextIndex
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    currentIndex = nextIndex
+                }
             }
             .onAppear {
                 currentIndex = searcher.index(at: player.currentTime)
@@ -130,6 +134,7 @@ struct ImmersiveListeningView: View {
                 hideControlsTask?.cancel()
                 feedbackDismissTask?.cancel()
             }
+            .environment(\.colorScheme, .dark)
         }
     }
 
@@ -263,7 +268,7 @@ private struct ImmersiveDismissPanArea: UIViewRepresentable {
         func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
             guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer else { return true }
             let velocity = panGesture.velocity(in: panGesture.view)
-            return velocity.x < -40 && abs(velocity.x) > abs(velocity.y) * 1.2
+            return velocity.x > 40 && abs(velocity.x) > abs(velocity.y) * 1.2
         }
 
         func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -275,7 +280,7 @@ private struct ImmersiveDismissPanArea: UIViewRepresentable {
 
             let translation = gesture.translation(in: gesture.view)
             let velocity = gesture.velocity(in: gesture.view)
-            let enoughLeftDistance = translation.x < -44 || velocity.x < -500
+            let enoughLeftDistance = translation.x > 44 || velocity.x > 500
             let horizontalDominant = abs(translation.x) > abs(translation.y) * 1.35 || abs(velocity.x) > abs(velocity.y) * 1.35
 
             guard enoughLeftDistance, horizontalDominant else { return }

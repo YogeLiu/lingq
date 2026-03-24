@@ -4,41 +4,44 @@ import SharedModels
 struct LyricsCanvasView: View {
     let cues: [SubtitleCue]
     let currentIndex: Int?
+    let currentTime: TimeInterval
     let onCueTap: (SubtitleCue) -> Void
     let savedWords: Set<String>
     let onWordLongPress: (String, String) -> Void
 
-    @State private var lastAutoScrolledIndex: Int?
-
-    private let followScrollStep = 4
+    @State private var wordsCache: [[WordSpan]] = []
 
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: 6) {
-                    Spacer(minLength: 120)
+                LazyVStack(alignment: .leading, spacing: 4) {
+                    Spacer(minLength: UIScreen.main.bounds.height * 0.4)
 
                     ForEach(Array(cues.enumerated()), id: \.element.id) { index, cue in
+                        let words = wordsCache.indices.contains(index) ? wordsCache[index] : []
                         TappableSubtitleLineView(
                             text: cue.text,
                             state: lyricState(for: index),
+                            wordProgress: wordProgress(for: index),
                             savedWords: savedWords,
+                            words: words,
                             onLineTap: { onCueTap(cue) },
                             onWordLongPress: onWordLongPress
                         )
                         .id(cue.id)
                     }
 
-                    Spacer(minLength: 300)
+                    Spacer(minLength: UIScreen.main.bounds.height * 0.5)
                 }
                 .padding(.horizontal, 24)
             }
             .scrollDismissesKeyboard(.immediately)
             .onAppear {
-                scrollToCurrentCueIfNeeded(using: proxy, force: true)
+                buildWordsCacheIfNeeded()
+                scrollToCurrent(using: proxy, animated: false)
             }
-            .onChange(of: currentIndex) { _, newIndex in
-                scrollToCurrentCueIfNeeded(using: proxy, force: false)
+            .onChange(of: currentIndex) { _, _ in
+                scrollToCurrent(using: proxy, animated: true)
             }
         }
     }
@@ -50,20 +53,29 @@ struct LyricsCanvasView: View {
         return .future(distance: index - current)
     }
 
-    private func scrollToCurrentCueIfNeeded(using proxy: ScrollViewProxy, force: Bool) {
-        guard let currentIndex,
-              cues.indices.contains(currentIndex) else { return }
+    private func wordProgress(for index: Int) -> Double {
+        guard let currentIndex, index == currentIndex else { return 0 }
+        let cue = cues[index]
+        let duration = cue.endTime - cue.startTime
+        guard duration > 0 else { return 1 }
+        return min(max((currentTime - cue.startTime) / duration, 0), 1)
+    }
 
-        if !force,
-           let lastAutoScrolledIndex,
-           currentIndex > lastAutoScrolledIndex,
-           currentIndex - lastAutoScrolledIndex < followScrollStep {
-            return
+    private func buildWordsCacheIfNeeded() {
+        guard wordsCache.isEmpty else { return }
+        wordsCache = cues.map { WordSpan.split($0.text) }
+    }
+
+    private func scrollToCurrent(using proxy: ScrollViewProxy, animated: Bool) {
+        guard let currentIndex, cues.indices.contains(currentIndex) else { return }
+        let targetID = cues[currentIndex].id
+        if animated {
+            withAnimation(.easeInOut(duration: 0.35)) {
+                proxy.scrollTo(targetID, anchor: .center)
+            }
+        } else {
+            proxy.scrollTo(targetID, anchor: .center)
         }
-
-        let targetIndex = min(currentIndex + 2, cues.count - 1)
-        proxy.scrollTo(cues[targetIndex].id, anchor: .center)
-        lastAutoScrolledIndex = currentIndex
     }
 }
 

@@ -1,138 +1,82 @@
 import SwiftUI
-import SharedModels
-import NaturalLanguage
 
 struct TappableSubtitleLineView: View {
     let text: String
     let state: LyricLineView.LyricState
+    let wordProgress: Double
     let savedWords: Set<String>
+    let words: [WordSpan]
     let onLineTap: () -> Void
     let onWordLongPress: (String, String) -> Void
-    private let tokens: [SubtitleToken]
-
-    init(
-        text: String,
-        state: LyricLineView.LyricState,
-        savedWords: Set<String>,
-        onLineTap: @escaping () -> Void,
-        onWordLongPress: @escaping (String, String) -> Void
-    ) {
-        self.text = text
-        self.state = state
-        self.savedWords = savedWords
-        self.onLineTap = onLineTap
-        self.onWordLongPress = onWordLongPress
-        self.tokens = SubtitleToken.tokenize(text)
-    }
 
     var body: some View {
-        FlowLayout(spacing: 4, lineSpacing: 6) {
-            ForEach(Array(tokens.enumerated()), id: \.offset) { _, token in
-                if token.isWord {
-                    Text(token.text)
-                        .font(font)
-                        .padding(.horizontal, tokenPadding)
-                        .padding(.vertical, 3)
-                        .background(tokenBackground(for: token.normalizedWord), in: Capsule())
-                        .foregroundStyle(foregroundColor)
-                        .contentShape(Rectangle())
-                        .onLongPressGesture(minimumDuration: 0.35) {
-                            onWordLongPress(token.text, text)
-                        }
-                } else {
-                    Text(token.text)
-                        .font(font)
-                        .foregroundStyle(foregroundColor)
-                }
+        FlowLayout(spacing: 0, lineSpacing: 2) {
+            ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                Text(word.display)
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundStyle(wordColor(at: index))
+                    .underline(isSaved(word), color: .white.opacity(0.25))
+                    .contentShape(Rectangle())
+                    .onLongPressGesture(minimumDuration: 0.35) {
+                        onWordLongPress(word.raw, text)
+                    }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 4)
+        .padding(.vertical, 6)
+        .scaleEffect(state.isCurrent ? 1.0 : 0.95, anchor: .leading)
         .contentShape(Rectangle())
-        .opacity(state.opacity)
         .onTapGesture(perform: onLineTap)
     }
 
-    private var font: Font {
-        .system(size: 21, weight: state.isCurrent ? .bold : .medium, design: .rounded)
-    }
-
-    private var foregroundColor: Color {
+    private func wordColor(at index: Int) -> Color {
         switch state {
         case .current:
-            AppTheme.brandAccent
-        case .future:
-            AppTheme.textPrimary
-        case .past:
-            AppTheme.textTertiary
+            let total = max(words.count, 1)
+            let threshold = Double(index) / Double(total)
+            return threshold < wordProgress ? .white : .white.opacity(0.3)
+        case .past(let d):
+            return .white.opacity(max(0.08, 0.35 - Double(d) * 0.06))
+        case .future(let d):
+            return .white.opacity(max(0.08, 0.45 - Double(d) * 0.06))
         }
     }
 
-    private var tokenPadding: CGFloat {
-        4
-    }
-
-    private func tokenBackground(for word: String?) -> Color {
-        if let word, savedWords.contains(word) {
-            return AppTheme.brandAccent.opacity(state.isCurrent ? 0.18 : 0.10)
-        }
-        if state.isCurrent {
-            return AppTheme.brandAccent.opacity(0.08)
-        }
-        return .clear
+    private func isSaved(_ word: WordSpan) -> Bool {
+        guard let normalized = word.normalized else { return false }
+        return savedWords.contains(normalized)
     }
 }
 
-private struct SubtitleToken {
-    let text: String
-    let isWord: Bool
+// MARK: - Word Span
 
-    var normalizedWord: String? {
-        guard isWord else { return nil }
-        let cleaned = text
-            .trimmingCharacters(in: CharacterSet.punctuationCharacters.union(.symbols).union(.whitespacesAndNewlines))
-            .lowercased()
+struct WordSpan {
+    let display: String
+    let raw: String
+    let normalized: String?
 
-        guard cleaned.rangeOfCharacter(from: .letters) != nil else {
-            return nil
+    static func split(_ source: String) -> [WordSpan] {
+        let components = source.split(separator: /\s+/)
+        return components.enumerated().map { index, component in
+            let raw = String(component)
+            let display = index < components.count - 1 ? raw + " " : raw
+            let cleaned = raw
+                .trimmingCharacters(in: .punctuationCharacters.union(.symbols))
+                .lowercased()
+            return WordSpan(
+                display: display,
+                raw: raw,
+                normalized: cleaned.isEmpty ? nil : cleaned
+            )
         }
-
-        return cleaned
-    }
-
-    static func tokenize(_ source: String) -> [SubtitleToken] {
-        let tokenizer = NLTokenizer(unit: .word)
-        tokenizer.string = source
-
-        var tokens: [SubtitleToken] = []
-        var currentIndex = source.startIndex
-
-        tokenizer.enumerateTokens(in: source.startIndex..<source.endIndex) { range, _ in
-            if currentIndex < range.lowerBound {
-                tokens.append(SubtitleToken(text: String(source[currentIndex..<range.lowerBound]), isWord: false))
-            }
-
-            tokens.append(SubtitleToken(text: String(source[range]), isWord: true))
-            currentIndex = range.upperBound
-            return true
-        }
-
-        if currentIndex < source.endIndex {
-            tokens.append(SubtitleToken(text: String(source[currentIndex..<source.endIndex]), isWord: false))
-        }
-
-        return tokens.filter { !$0.text.isEmpty }
     }
 }
 
-private struct FlowLayout: Layout {
+// MARK: - Flow Layout
+
+struct FlowLayout: Layout {
     var spacing: CGFloat
     var lineSpacing: CGFloat
-
-    init(spacing: CGFloat = 4, lineSpacing: CGFloat = 6) {
-        self.spacing = spacing
-        self.lineSpacing = lineSpacing
-    }
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         arrange(proposal: proposal, subviews: subviews).size
@@ -151,28 +95,28 @@ private struct FlowLayout: Layout {
     private func arrange(proposal: ProposedViewSize, subviews: Subviews) -> (size: CGSize, positions: [CGPoint]) {
         let maxWidth = proposal.width ?? .infinity
         var positions: [CGPoint] = []
-        var currentX: CGFloat = 0
-        var currentY: CGFloat = 0
+        var x: CGFloat = 0
+        var y: CGFloat = 0
         var lineHeight: CGFloat = 0
         var maxLineWidth: CGFloat = 0
 
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
 
-            if currentX > 0 && currentX + size.width > maxWidth {
-                currentX = 0
-                currentY += lineHeight + lineSpacing
+            if x > 0 && x + size.width > maxWidth {
+                x = 0
+                y += lineHeight + lineSpacing
                 lineHeight = 0
             }
 
-            positions.append(CGPoint(x: currentX, y: currentY))
-            currentX += size.width + spacing
+            positions.append(CGPoint(x: x, y: y))
+            x += size.width + spacing
             lineHeight = max(lineHeight, size.height)
-            maxLineWidth = max(maxLineWidth, currentX)
+            maxLineWidth = max(maxLineWidth, x)
         }
 
         return (
-            size: CGSize(width: min(maxWidth, maxLineWidth), height: currentY + lineHeight),
+            size: CGSize(width: min(maxWidth, maxLineWidth), height: y + lineHeight),
             positions: positions
         )
     }
